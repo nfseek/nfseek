@@ -43,8 +43,8 @@ const Editor = (props) => {
                     if(resp.status === 'success'){
 
                         dispatch(setPageHeading({
-                            pageHeading: "PaxURL - "+ resp.data.title,
-                            title: "PaxURL - "+ resp.data.title,
+                            pageHeading: "NFSEEK - "+ resp.data.title,
+                            title: "NFSEEK - "+ resp.data.title,
                         }));
 
                         dispatch(editorDataUpdate(resp.data));

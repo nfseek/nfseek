@@ -15,8 +15,8 @@ const Settings = (props) => {
     let dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageHeading({
-            pageHeading: "PaxURL - Setting",
-            title: "PaxURL - Setting",
+            pageHeading: "NFSEEK - Setting",
+            title: "NFSEEK - Setting",
         }));
     }, [dispatch]);
 

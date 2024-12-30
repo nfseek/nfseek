@@ -96,8 +96,8 @@ const PreviewTemplate = () => {
                     if(resp.status === 'error'){
                         setShow404(true);
                         dispatch(setPageHeading({
-                            title: 'PaxURL - Page Not Found',
-                            pageHeading: 'PaxURL - Page Not Found',
+                            title: 'NFSEEK - Page Not Found',
+                            pageHeading: 'NFSEEK - Page Not Found',
                         }));
                     }
                 });

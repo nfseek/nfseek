@@ -43,7 +43,7 @@ const CreateLink = (props) => {
             </span>
 
             <Popup
-                heading="Create New PaxURL"
+                heading="Create New NFSEEK"
                 subHeading="Enter Your URL Below to Continue"
                 show={createLinkPopup}
                 maxWidth={570}

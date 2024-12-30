@@ -21,8 +21,8 @@ const EmailSettings = (props) => {
     let dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageHeading({
-            pageHeading: "PaxURL - Email Setting",
-            title: "PaxURL - Email Setting",
+            pageHeading: "NFSEEK - Email Setting",
+            title: "NFSEEK - Email Setting",
         }));
     }, [dispatch]);
 

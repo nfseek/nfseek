@@ -28,10 +28,10 @@ const Home = () => {
   let dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageHeading({
-            title: "PaxURL - Connect And Manage All Your Social Links At One Place",
-            keywords : "PaxURL, PaxURL, pixa url, biolink, bio link, miniwebsite, mini website, social link, personal link, portfolio link, bio link generator",
+            title: "NFSEEK - Connect And Manage All Your Social Links At One Place",
+            keywords : "NFSEEK, NFSEEK, pixa url, biolink, bio link, miniwebsite, mini website, social link, personal link, portfolio link, bio link generator",
             description: "Connect and manage all your social links in one place. Organize your social handles into a single tap. Get a link and work smart.",
-            pageHeading: "PaxURL - Connect And Manage All Your Social Links At One Place",
+            pageHeading: "NFSEEK - Connect And Manage All Your Social Links At One Place",
         }));
   }, [router]);
 
@@ -47,7 +47,7 @@ const Home = () => {
     new Typewriter('#type_anim', {
       // strings: ['Social Link', 'Bio Link', 'Portfolio', 'Mini Website'],
 
-      strings: ['Mini Website', 'Bio Link', 'Portfolio Site', 'Social Link' , 'Personal URL', 'PaxURL', 'Pro Bio URL'],
+      strings: ['Mini Website', 'Bio Link', 'Portfolio Site', 'Social Link' , 'Personal URL', 'NFSEEK', 'Pro Bio URL'],
       autoStart: true,
       loop: true
     });
@@ -180,7 +180,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>PaxURL - Connect And Manage All Your Social Links At One Place</title>
+        <title>NFSEEK - Connect And Manage All Your Social Links At One Place</title>
       </Head>
       <div className={styles.wrapper}>
         {/* header start */}
@@ -283,7 +283,7 @@ const Home = () => {
                 <div className={styles.main_heading}>
                   <h3>Our core features</h3>
                 </div>
-                <p>PaxURL provides a single location to concentrate your follower’s attention on your every social media account. Also, you can customize your profile with the available creative templates. Here you can edit the content and add the links to your website or social media handles. It helps you keep in touch with your followers/subscribers for longer.</p>
+                <p>NFSEEK provides a single location to concentrate your follower’s attention on your every social media account. Also, you can customize your profile with the available creative templates. Here you can edit the content and add the links to your website or social media handles. It helps you keep in touch with your followers/subscribers for longer.</p>
                 <Link href="/auth/login"><a className="pu_btn">Know More</a></Link>
               </div>
             </div>
@@ -467,7 +467,7 @@ const Home = () => {
                   <div className={styles.logo_footer}>
                     {svg.logo}
                   </div>
-                  <p>PaxURL allows you to create a custom, personalized page that stores all the prominent links you wish to share with your viewers.</p>
+                  <p>NFSEEK allows you to create a custom, personalized page that stores all the prominent links you wish to share with your viewers.</p>
               </div>
               <div className={`${styles.footer_item} ${styles.footer_list_2}`}>
                   <div className={styles.footer_icon}>
@@ -503,7 +503,7 @@ const Home = () => {
             </div>
 
             <div className={styles.footer_copy__right}>
-              <p>Copyright © 2025 PaxURL. All rights reserved. </p>
+              <p>Copyright © 2025 NFSEEK. All rights reserved. </p>
             </div>
           </div>
       

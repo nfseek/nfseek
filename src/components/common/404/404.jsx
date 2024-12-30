@@ -14,8 +14,8 @@ const ErrorComp = () => {
     const [isUserLogin, setIsUserLogin] = useState(false);
     useEffect(() => {
         dispatch(setPageHeading({
-            title: 'PaxURL - Page Not Found',
-            pageHeading: 'PaxURL - Page Not Found',
+            title: 'NFSEEK - Page Not Found',
+            pageHeading: 'NFSEEK - Page Not Found',
         }));
 
         let tokenCookie = Cookies.get('accessToken') ? Cookies.get('accessToken') : false;

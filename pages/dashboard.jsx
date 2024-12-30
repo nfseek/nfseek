@@ -20,8 +20,8 @@ const Dashboard = () => {
     let dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageHeading({
-            pageHeading: "PaxURL - Dashboard",
-            title: "PaxURL - Dashboard",
+            pageHeading: "NFSEEK - Dashboard",
+            title: "NFSEEK - Dashboard",
         }));
     }, [dispatch]);
     const [linkCount, setLinkCount] = useState('0');

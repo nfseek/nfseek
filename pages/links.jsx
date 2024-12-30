@@ -10,8 +10,8 @@ const MyLinks = () => {
     let dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageHeading({
-            pageHeading: "PaxURL - My Profile",
-            title: "PaxURL - My Profile",
+            pageHeading: "NFSEEK - My Profile",
+            title: "NFSEEK - My Profile",
         }));
     }, [dispatch]);
     const [linkCount, setLinkCount] = useState('0');

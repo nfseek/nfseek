@@ -16,8 +16,8 @@ const Templates = () => {
     const [pageTitle, setPageTitle] = useState('Templates');
     useEffect(() => {
         dispatch(setPageHeading({
-            pageHeading: "PaxURL - " + pageTitle,
-            title: "PaxURL - " + pageTitle,
+            pageHeading: "NFSEEK - " + pageTitle,
+            title: "NFSEEK - " + pageTitle,
         }));
     }, [dispatch]);
 
@@ -263,7 +263,7 @@ const Templates = () => {
             </div>
 
             <Popup
-                heading="Create New PaxURL"
+                heading="Create New NFSEEK"
                 subHeading="Enter Your URL Below to Continue"
                 show={createLinkPopup}
                 maxWidth={570}

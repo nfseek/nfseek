@@ -18,8 +18,8 @@ const Profile = (props) => {
     let dispatch = useDispatch();
     useEffect(() => {
         dispatch(setPageHeading({
-            pageHeading: "PaxURL - Profile",
-            title: "PaxURL - Profile",
+            pageHeading: "NFSEEK - Profile",
+            title: "NFSEEK - Profile",
         }));
     }, [dispatch]);
 
