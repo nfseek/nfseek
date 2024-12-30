@@ -77,7 +77,7 @@ const Contacts = () => {
                 [email]: stats
             }));
 
-            console.log(`QR Stats for ${email}:`, stats);
+           
             
         } catch (error) {
            

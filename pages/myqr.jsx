@@ -55,7 +55,7 @@ const MyQR = () => {
 
             const fetchQRCodeData = async () => {
                 try {
-                    console.log('Fetching QR code data for user ID:', userId); // Log user ID
+                     // Log user ID
                     const response = await axios.get(`/api/user/getQRData?userId=${userId}`);
                     if (response.data) {
                         const fetchedQrid = response.data.qrId; // Set the QR ID dynamically
