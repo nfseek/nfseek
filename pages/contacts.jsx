@@ -80,7 +80,7 @@ const Contacts = () => {
             console.log(`QR Stats for ${email}:`, stats);
             
         } catch (error) {
-            console.error('Error fetching QR stats for', email, ':', error);
+           
         } finally {
             setLoadingStats(prev => ({ ...prev, [email]: false }));
         }
