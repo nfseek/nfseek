@@ -154,7 +154,12 @@ routeHandler.getTeamDetails = async (req, res) => {
             userId: user._id
         }).populate({
             path: 'members.contactId',
-            select: 'firstName lastName email phoneNumber company isUser qrId'
+            select: 'firstName lastName email phoneNumber company isUser userId',
+            populate: {
+                path: 'userId',
+                select: 'qrId qrImage qrUrl',
+                model: 'User'
+            }
         });
 
         if (!team) {
@@ -164,9 +169,25 @@ routeHandler.getTeamDetails = async (req, res) => {
             });
         }
 
+        // Transform the response to include user details
+        const transformedTeam = {
+            ...team.toObject(),
+            members: team.members.map(member => ({
+                ...member,
+                contactId: {
+                    ...member.contactId,
+                    qrDetails: member.contactId.userId ? {
+                        qrId: member.contactId.userId.qrId,
+                        qrImage: member.contactId.userId.qrImage,
+                        qrUrl: member.contactId.userId.qrUrl
+                    } : null
+                }
+            }))
+        };
+
         res.json({
             status: 'success',
-            data: team
+            data: transformedTeam
         });
     } catch(err) {
         console.error('Team details error:', err);

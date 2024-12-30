@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         const users = await User.find({ 
             status: { $ne: 0 },  // Get all active users
             qrId: { $exists: true, $ne: null } 
-        }).select('firstName lastName email qrId createdAt');
+        }).select('name firstName lastName email qrId createdAt profilePicture qrImage');
 
         if (!users) {
             return res.status(200).json([]);
@@ -17,11 +17,14 @@ export default async function handler(req, res) {
 
         // Map the users to include only necessary data
         const leaderboardData = users.map(user => ({
+            name: user.name || '',
             firstName: user.firstName || '',
             lastName: user.lastName || '',
             email: user.email || '',
             qrId: user.qrId || '',
-            createdAt: user.createdAt
+            createdAt: user.createdAt,
+            profilePicture: user.profilePicture?.file || '',
+            qrImage: user.qrImage || ''
         }));
 
         return res.status(200).json(leaderboardData);

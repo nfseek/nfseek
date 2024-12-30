@@ -249,75 +249,9 @@ const Teams = () => {
             wrap: true,
             width: '200px'
         },
-        {
-            name: 'QR ID',
-            selector: row => row.qrId || '-',
-            sortable: true,
-            cell: row => (
-                <div className="pu_qr_id">
-                    {row.isUser && row.qrId ? (
-                        <span className="pu_qr_code">
-                            {svg.qr_code_icon}
-                            {row.qrId}
-                        </span>
-                    ) : '-'}
-                </div>
-            )
-        },
-        {
-            name: 'Today\'s Scans',
-            width: '120px',
-            cell: row => (
-                <div className="pu_scan_stats">
-                    {row.isUser && row.qrId ? (
-                        loadingStats[row.email] ? (
-                            <div className="pu_loading_indicator">Loading...</div>
-                        ) : (
-                            <span className="pu_scan_count">
-                                {qrStats[row.email]?.day || '0'}
-                                <span className="pu_scan_label">scans</span>
-                            </span>
-                        )
-                    ) : '-'}
-                </div>
-            )
-        },
-        {
-            name: 'Weekly Scans',
-            width: '120px',
-            cell: row => (
-                <div className="pu_scan_stats">
-                    {row.isUser && row.qrId ? (
-                        loadingStats[row.email] ? (
-                            <div className="pu_loading_indicator">Loading...</div>
-                        ) : (
-                            <span className="pu_scan_count">
-                                {qrStats[row.email]?.week || '0'}
-                                <span className="pu_scan_label">scans</span>
-                            </span>
-                        )
-                    ) : '-'}
-                </div>
-            )
-        },
-        {
-            name: 'Monthly Scans',
-            width: '120px',
-            cell: row => (
-                <div className="pu_scan_stats">
-                    {row.isUser && row.qrId ? (
-                        loadingStats[row.email] ? (
-                            <div className="pu_loading_indicator">Loading...</div>
-                        ) : (
-                            <span className="pu_scan_count">
-                                {qrStats[row.email]?.month || '0'}
-                                <span className="pu_scan_label">scans</span>
-                            </span>
-                        )
-                    ) : '-'}
-                </div>
-            )
-        },
+        
+        
+        
         {
             name: 'Actions',
             cell: row => (

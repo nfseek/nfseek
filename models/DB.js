@@ -1,6 +1,8 @@
 const db = {};
 
 import Users from './User';
+import Contact from './Contact';
+import Team from './Team';
 import Campaign from './Campaign';
 import Template from './Template';
 import TemplateCategory from './TemplateCategory';
@@ -22,11 +24,11 @@ import AdminSettings from './AdminSettings';
 import OrderList from './OrderList';
 import AutoIncreament from './AutoIncrement';
 import Coupons from './Coupons';
-import Contact from './Contact';
-import Team from './Team';
 
 // Models/tables
 db.Users = Users;
+db.Contact = Contact;
+db.Team = Team;
 db.Campaigns = Campaign;
 db.Templates = Template;
 db.TemplateCategory = TemplateCategory;
@@ -48,8 +50,6 @@ db.AdminSettings = AdminSettings;
 db.OrderList = OrderList;
 db.AutoIncreament = AutoIncreament;
 db.Coupons = Coupons;
-db.Contact = Contact;
-db.Team = Team;
 
 // for first time when tables are empty
 for (let collectionname in db) {

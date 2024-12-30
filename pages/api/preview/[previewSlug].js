@@ -250,62 +250,51 @@ routeHandler.getTemplatePage = async (req, res) => {
     let templateData = await templateTbl.findOne(where, {_id: 1, profile: 1, templateStyle: 1, themeId: 1, SocialIconData: 1, html_theme_id: 1, status: 1, userId: 1});
     
     if(templateData) {
-
-      let check = await AdminSettings.findOne()
-      let checkExpire = await Users.findOne({'_id' : templateData.userId});
-      if(!postdata.action && postdata.action !== "previewPage"){
-        if(check.isEnabled == true){
-    
-          if(!checkExpire?.validityDate) {
-            if(check.isAdEnabled == false){
-              return res.json({
-                status : 'success',
-                message: '',
-                data : 0,
-                userid: checkExpire._id
-              });
-            }
-          }
-    
-          if(checkExpire.validityDate && checkExpire.validityDate !== ''){
-            var date = moment(checkExpire.validityDate)
-            var now = moment();
-            if(now > date){
-              await Users.findOneAndUpdate({'_id': checkExpire._id},{'validityDate' : ''})
-              if (check.isAdEnabled == false) {
-                return res.json({
-                  status : 'success',
-                  message: '',
-                  data : 0,
-                  userid: checkExpire._id
-                })
-              }
-            }
-          }
-        }
-      }
+      // Fetch admin settings and user details
+      let adminSettings = await AdminSettings.findOne();
+      let userDetails = await Users.findOne({'_id': templateData.userId});
 
       where2.templateId = templateData._id;
       let templatePageData = await templatePageTbl.findOne(where2);
       if(templatePageData && typeof templatePageData._id != 'undefined') {
         let pageSections = await templateSectionTbl.find({ templateId: templateData._id, pageId: templatePageData._id }).sort({ sort: 1 });
+        
         if(typeof postdata.isVisitor != 'undefined' && postdata.isVisitor == true) {
           if(isAdmin == false) {
             await updateVisitorAnalytics(templatePageData, otherData);
           }
         }
-        res.json({
-          status: 'success',
-          message: '',
-          data: {template: templateData, page: templatePageData, sections: pageSections, isAdmin: isAdmin, adEnable : check?.isAdEnabled, adScript : check?.adScript, adScriptCode : check?.adScriptCode ,validity : checkExpire?.validityDate}
-        });
-      }else {
+
+        // Check if admin settings are enabled
+        if (adminSettings && adminSettings.isEnabled) {
+          res.json({
+            status: 'success',
+            message: '',
+            data: {
+              template: templateData, 
+              page: templatePageData, 
+              sections: pageSections, 
+              isAdmin: isAdmin, 
+              adEnable: adminSettings.isAdEnabled,
+              adScript: adminSettings.adScript,
+              adScriptCode: adminSettings.adScriptCode,
+              validity: userDetails?.validityDate ?? ''
+            }
+          });
+        } else {
+          // Handle the case where admin settings are disabled or null
+          res.json({
+            status: 'error',
+            message: 'Admin settings are disabled.'
+          });
+        }
+      } else {
         res.json({
           status: 'error',
           message: 'We have not found template page.'
         });
       }
-    }else {
+    } else {
       res.json({
         status: 'error',
         message: 'We have not found template page.'

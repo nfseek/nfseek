@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import DataTable from 'react-data-table-component';
-import { Tooltip } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { setPageHeading } from '../src/redux/actions/commonAction';
-import svg from '../src/helper/svg';
-import moment from 'moment';
+import DataTable from 'react-data-table-component';
 
 const Leaderboard = () => {
-    const dispatch = useDispatch();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [leaderboardData, setLeaderboardData] = useState([]);
     const [qrStats, setQrStats] = useState({});
     const [loadingStats, setLoadingStats] = useState({});
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(setPageHeading({
@@ -26,9 +24,9 @@ const Leaderboard = () => {
         setLoadingStats(prev => ({ ...prev, [email]: true }));
         try {
             const response = await axios.get(`https://api.qrtiger.com/api/data/${qrId}`, {
-                params: { 
+                params: {
                     period: 'month',
-                    tz: 'Asia/Singapore' 
+                    tz: 'Asia/Singapore'
                 },
                 headers: {
                     Authorization: 'Bearer 668db5e0-b812-11ef-95be-712daf5bc246',
@@ -37,28 +35,49 @@ const Leaderboard = () => {
             });
 
             const data = response.data.data;
-            
+
+            if (!data || !data.graph || data.graph.length === 0) {
+                console.warn(`No scan data available for ${email}`);
+                setQrStats(prev => ({
+                    ...prev,
+                    [email]: {
+                        day: 0,
+                        week: 0,
+                        month: data.totalScanByDate || 0
+                    }
+                }));
+                return;
+            }
+
             const stats = {
                 day: data.graph.filter(item => {
                     const date = new Date(item._id.year, item._id.month - 1, item._id.day);
                     const today = new Date();
                     return date.toDateString() === today.toDateString();
                 }).reduce((sum, item) => sum + item.count, 0),
-                
+
                 week: data.graph.filter(item => {
                     const date = new Date(item._id.year, item._id.month - 1, item._id.day);
                     const weekAgo = new Date();
                     weekAgo.setDate(weekAgo.getDate() - 7);
                     return date >= weekAgo;
                 }).reduce((sum, item) => sum + item.count, 0),
-                
+
                 month: data.totalScanByDate || 0
             };
 
-            setQrStats(prev => ({
-                ...prev,
-                [email]: stats
-            }));
+            setQrStats(prev => {
+                const newStats = {
+                    ...prev,
+                    [email]: stats
+                };
+                
+                // Update leaderboard data with new stats
+                updateLeaderboardWithStats(newStats);
+                return newStats;
+            });
+
+            console.log(`QR Stats for ${email}:`, stats);
         } catch (error) {
             console.error('Error fetching QR stats for', email, ':', error);
         } finally {
@@ -66,44 +85,69 @@ const Leaderboard = () => {
         }
     };
 
+    const updateLeaderboardWithStats = (newStats) => {
+        setLeaderboardData(prevData => {
+            const updatedData = prevData.map(user => ({
+                ...user,
+                todayScans: newStats[user.email]?.day || 0,
+                weeklyScans: newStats[user.email]?.week || 0,
+                monthScans: newStats[user.email]?.month || 0
+            }));
+
+            // Sort by monthly scans
+            const sortedData = [...updatedData].sort((a, b) => 
+                (b.monthScans || 0) - (a.monthScans || 0)
+            );
+
+            // Add ranks
+            return sortedData.map((user, index) => ({
+                ...user,
+                rank: index + 1
+            }));
+        });
+    };
+
     const fetchLeaderboardData = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('/api/getLeaderboardData');
-            const users = response.data;
+            const persistedData = localStorage.getItem('persist:root');
+            if (persistedData) {
+                const parsedData = JSON.parse(persistedData);
+                const userData = JSON.parse(parsedData.userData);
+                const token = userData.token;
 
-            if (users && users.length > 0) {
-                // Fetch QR stats for each user
-                const updatedUsers = await Promise.all(users.map(async (user) => {
-                    if (user.qrId) {
-                        try {
+                const response = await axios.get('/api/user/getAllActiveUsers', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                if (response.data.status === "success") {
+                    const users = response.data.data;
+                    
+                    // Set initial data
+                    const initialData = users.map(user => ({
+                        ...user,
+                        profilePicture: user.profilePicture?.file || '',
+                        fullName: user.name || 'Unknown User',
+                        todayScans: 0,
+                        weeklyScans: 0,
+                        monthScans: 0,
+                        rank: 0
+                    }));
+                    
+                    setLeaderboardData(initialData);
+
+                    // Fetch QR stats for each user
+                    for (const user of users) {
+                        if (user.qrId) {
                             await fetchQRStats(user.qrId, user.email);
-                            return {
-                                ...user,
-                                totalScans: qrStats[user.email]?.week || 0
-                            };
-                        } catch (error) {
-                            console.error(`Error fetching QR stats for ${user.email}:`, error);
-                            return {
-                                ...user,
-                                totalScans: 0
-                            };
                         }
                     }
-                    return {
-                        ...user,
-                        totalScans: 0
-                    };
-                }));
-
-                // Sort users by total scans
-                const sortedUsers = updatedUsers.sort((a, b) => b.totalScans - a.totalScans);
-                setLeaderboardData(sortedUsers);
-            } else {
-                setLeaderboardData([]);
+                }
             }
         } catch (error) {
-            console.error('Error fetching leaderboard data:', error);
+            console.error('Error:', error);
             setLeaderboardData([]);
         } finally {
             setLoading(false);
@@ -112,108 +156,51 @@ const Leaderboard = () => {
 
     const columns = [
         {
-            name: '#S.N.',
-            width: '100px',
-            center: true,
-            cell: (row, index) => (<span>{'#' + (index + 1)}</span>)
-        },
-        {
-            name: 'Name',
-            selector: row => `${row.firstName} ${row.lastName}`,
+            name: 'Rank',
+            selector: row => row.rank,
             sortable: true,
-            cell: (row) => (
-                <div className="pu_avatarName_wrapper">
-                    <div className="pu_avatar_icon">
-                        <span className="pu_avatar_initial">
-                            {row.firstName && row.firstName.charAt(0)}{row.lastName && row.lastName.charAt(0)}
-                        </span>
-                    </div>
-                    <div className="pu_avatar_name">{row.firstName} {row.lastName}</div>
-                </div>
-            )
+            width: '80px'
         },
         {
-            name: 'QR ID',
-            selector: row => row.qrId,
-            sortable: true
+            name: 'Profile Picture',
+            selector: row => row.profilePicture || '',
+            cell: row => {
+                if (row.profilePicture) {
+                    return <img src={row.profilePicture} alt="Profile" style={{ width: '50px', borderRadius: '50%' }} />;
+                } else {
+                    const initial = row.fullName ? row.fullName.charAt(0).toUpperCase() : '?';
+                    return (
+                        <div className="Header_header_avatar_icon__9QMxj" style={{ width: '50px', height: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%' }}>
+                            <span className="Header_header_avatar_icon_initial__C2_y_">{initial}</span>
+                        </div>
+                    );
+                }
+            },
+            sortable: false,
+            width: '100px'
         },
         {
-            name: 'Email',
-            selector: row => row.email,
-            sortable: true
-        },
-        {
-            name: 'Total Scans (Last 7 Days)',
-            selector: row => row.totalScans,
-            sortable: true
-        },
-        {
-            name: 'Registration Date',
-            selector: row => row.createdAt,
+            name: 'Full Name',
+            selector: row => row.fullName,
             sortable: true,
-            cell: (row) => (
-                <div>
-                    {row.createdAt ?
-                        <span className="">{moment(row.createdAt).format("DD-MMM-YYYY")}</span>
-                        :
-                        <span style={{ marginLeft: '40px' }}>{'-'}</span>
-                    }
-                </div>
-            )
         },
         {
             name: 'Today\'s Scans',
-            width: '120px',
-            cell: row => (
-                <div className="pu_scan_stats">
-                    {row.qrId ? (
-                        loadingStats[row.email] ? (
-                            <div className="pu_loading_indicator">Loading...</div>
-                        ) : (
-                            <span className="pu_scan_count">
-                                {qrStats[row.email]?.day || '0'}
-                                <span className="pu_scan_label">scans</span>
-                            </span>
-                        )
-                    ) : '-'}
-                </div>
-            )
+            selector: row => row.todayScans,
+            sortable: true,
+            right: true,
         },
         {
             name: 'Weekly Scans',
-            width: '120px',
-            cell: row => (
-                <div className="pu_scan_stats">
-                    {row.qrId ? (
-                        loadingStats[row.email] ? (
-                            <div className="pu_loading_indicator">Loading...</div>
-                        ) : (
-                            <span className="pu_scan_count">
-                                {qrStats[row.email]?.week || '0'}
-                                <span className="pu_scan_label">scans</span>
-                            </span>
-                        )
-                    ) : '-'}
-                </div>
-            )
+            selector: row => row.weeklyScans,
+            sortable: true,
+            right: true,
         },
         {
             name: 'Monthly Scans',
-            width: '120px',
-            cell: row => (
-                <div className="pu_scan_stats">
-                    {row.qrId ? (
-                        loadingStats[row.email] ? (
-                            <div className="pu_loading_indicator">Loading...</div>
-                        ) : (
-                            <span className="pu_scan_count">
-                                {qrStats[row.email]?.month || '0'}
-                                <span className="pu_scan_label">scans</span>
-                            </span>
-                        )
-                    ) : '-'}
-                </div>
-            )
+            selector: row => row.monthScans,
+            sortable: true,
+            right: true,
         }
     ];
 

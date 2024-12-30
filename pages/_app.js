@@ -1,4 +1,5 @@
 import Layout from '../src/components/Layout';
+import '../styles/globalStyles.css';
 import '../styles/globals.css';
 import '../styles/fonts.css';
 import '../styles/landing.css';

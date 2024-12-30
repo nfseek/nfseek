@@ -3,8 +3,7 @@ import mongoose from 'mongoose';
 const ContactSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    ref: 'User'
   },
   firstName: {
     type: String,
@@ -42,6 +41,10 @@ const ContactSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
     default: Date.now
+  },
+  isUser: {
+    type: Boolean,
+    default: false
   }
 });
 
