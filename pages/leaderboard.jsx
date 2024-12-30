@@ -37,7 +37,7 @@ const Leaderboard = () => {
             const data = response.data.data;
 
             if (!data || !data.graph || data.graph.length === 0) {
-                console.warn(`No scan data available for ${email}`);
+                
                 setQrStats(prev => ({
                     ...prev,
                     [email]: {
@@ -77,9 +77,9 @@ const Leaderboard = () => {
                 return newStats;
             });
 
-            console.log(`QR Stats for ${email}:`, stats);
+            
         } catch (error) {
-            console.error('Error fetching QR stats for', email, ':', error);
+            
         } finally {
             setLoadingStats(prev => ({ ...prev, [email]: false }));
         }
