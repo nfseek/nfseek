@@ -29,7 +29,7 @@ const Home = () => {
     useEffect(() => {
         dispatch(setPageHeading({
             title: "NFSEEK - Connect And Manage All Your Social Links At One Place",
-            keywords : "NFSEEK, NFSEEK, pixa url, biolink, bio link, miniwebsite, mini website, social link, personal link, portfolio link, bio link generator",
+            keywords : "NFSEEK, NFSEEK, NFSEEK url, biolink, bio link, miniwebsite, mini website, social link, personal link, portfolio link, bio link generator",
             description: "Connect and manage all your social links in one place. Organize your social handles into a single tap. Get a link and work smart.",
             pageHeading: "NFSEEK - Connect And Manage All Your Social Links At One Place",
         }));
@@ -296,7 +296,7 @@ const Home = () => {
           <div className="pu_landing_templates">
             <div className={styles.main_heading}>
               <h3>Start With Creative Templates</h3>
-              <strong>Get started with PixaURL to play around with these stunning templates.</strong>
+              <strong>Get started with NFSEEK to play around with these stunning templates.</strong>
             </div>
             <div className="pu_templates_slider">
               <Swiper

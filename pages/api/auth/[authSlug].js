@@ -29,7 +29,7 @@ routeHandler.login = async (req, res) => {
   if (!user) {
 		res.json({
 			status: 'error',
-			message: "Couldn't find a PixaURL account associated with this email and password. Please try again.",
+			message: "Couldn't find a NFSEEK account associated with this email and password. Please try again.",
 		})
 	} else {
     if (user.status) {
@@ -75,7 +75,7 @@ routeHandler.login = async (req, res) => {
     } else {
 			res.json({
 				status: 'error',
-				message: `Your PixaURL account has been deactivated.`,
+				message: `Your NFSEEK account has been deactivated.`,
 			})
     }
   }
@@ -108,26 +108,23 @@ routeHandler.getParentID = async (req, res) => {
 routeHandler.register = async (req, res) => {
 	const postdata = req.body;
 	try {
-		let parentUser = await Users.findOne({
-			role: 1,
-		}).catch(() => {
-			res.json({
+		let parentUser = await Users.findOne({ role: 1 }).catch(() => {
+			return res.json({
 				message: "There was an error!",
 				status: 'error',
-			})
-			return;
+			});
 		});
 		postdata.parentId = parentUser.id;
-		let uEmail = postdata.email.toLowerCase();
-		uEmail = uEmail.trim();
+		let uEmail = postdata.email.toLowerCase().trim();
 		let where = { email: uEmail };
 		let user = await Users.findOne(where).catch((error) => {
-			res.json({
+			return res.json({
 				status: 'error',
 				message: "There was an error!",
 				d: error,
-			})
+			});
 		});
+
 		if (!user) {
 			let newUser = {
 				source: "Self",
@@ -139,78 +136,84 @@ routeHandler.register = async (req, res) => {
 				role: 2,
 				status: 0,
 			};
+
 			Users.create(newUser).then((user) => {
-				fs.readFile(
-					`${process.env.folderPath}/email_template/reg.txt`,
-					"utf8",
-					async (err, htmlToSend) => {
-						if (err) {
-							console.error(err);
-							res.json({
-								status: "error",
-								message: "User has Created but error in sending email.",
-								data: err
-							});
-							return;
+				fs.readFile(`${process.env.folderPath}/email_template/reg.txt`, "utf8", async (err, htmlToSend) => {
+					if (err) {
+						console.error(err);
+						return res.json({
+							status: "error",
+							message: "User has Created but error in sending email.",
+							data: err
+						});
+					}
+
+					let object = {
+						"{member_name}": user.name,
+						"{login_url}": process.env.APP_URL,
+						"{member_email}": user.email,
+						"{member_password}": postdata.password,
+						"{activate_link}": `${process.env.APP_URL}verify/${user.id}`,
+					};
+
+					let replaces = Common.replaceItemByObj(htmlToSend, object);
+					let params = {
+						to: user.email,
+						subject: "Welcome to PixaURL",
+						html: replaces
+					};
+
+					let emailData = await AdminSettings.findOne();
+					let settings = emailData.emailSettings;
+					let mailResponse;
+
+					try {
+						if (emailData.emailSettings.name == 'Mandrill') {
+							mailResponse = await CommonAPI.sendMailUsingMandrill(params, settings);
+						} else if (emailData.emailSettings.name == 'SMTP') {
+							mailResponse = await CommonAPI.sendMailUsingSMTP(params, settings);
+						} else if (emailData.emailSettings.name == 'Sendgrid') {
+							mailResponse = await CommonAPI.sendMailUsingSendgrid(params, settings);
 						}
-						let object = {
-							"{member_name}": user.name,
-							"{login_url}": process.env.APP_URL,
-							"{member_email}": user.email,
-							"{member_password}": postdata.password,
-							"{activate_link}": `${process.env.APP_URL}verify/${user.id}`,
-						};
-						let replaces = Common.replaceItemByObj(htmlToSend, object);
-						let params = {
-							to: user.email,
-							subject: "Welcome to PixaURL",
-							html: replaces
-						}
-						let emailData = await AdminSettings.findOne()
-						let settings = emailData.emailSettings
-						let mailResponse
-						if(emailData.emailSettings.name == 'Mandrill'){
-							mailResponse = await CommonAPI.sendMailUsingMandrill(params,settings);
-						}
-						if(emailData.emailSettings.name == 'SMTP'){
-							mailResponse = await CommonAPI.sendMailUsingSMTP(params, settings)
-						}
-						if(emailData.emailSettings.name == 'Sendgrid'){
-							mailResponse = await CommonAPI.sendMailUsingSendgrid(params, settings)
-						}
-						
-						//console.log(mailResponse);
-						/* if(mailResponse.accepted.length > 0) {
+
+						if (mailResponse.accepted.length > 0) {
 							console.log("Success");
-						}else {
-							res.json({
+							return res.json({
+								status: 'success',
+								message: "You have registered successfully.",
+								data: { id: user.id },
+							});
+						} else {
+							return res.json({
 								status: 'error',
 								msg: "Something went wrong.",
 								data: mailResponse.rejected[0].reject_reason
 							});
-						} */
-						res.json({
-							status: 'success',
-							message: "You have registered successfully.",
-							data: { id: user.id },
-						})
+						}
+					} catch (emailError) {
+						console.error("Error sending email:", emailError);
+						return res.json({
+							status: 'error',
+							message: "Error sending email.",
+							data: emailError
+						});
 					}
-				)
+				});
 			});
 		} else {
-			res.json({
+			return res.json({
 				status: 'error',
-				message: `Email is already used, Please use different email.`,
-			})
+				message: `Email is already used, Please use a different email.`,
+			});
 		}
-	}catch(err) {
+	} catch (err) {
 		console.log(err);
-		res.json({
+		return res.json({
 			status: "error",
 			message: "Server error",
-		})
+		});
 	}
-}
+};
 
 routeHandler.userAccountActive = async (req, res) => {
 	const postdata = req.body;

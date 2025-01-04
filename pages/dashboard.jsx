@@ -6,6 +6,7 @@ import { common } from "../src/helper/Common";
 import svg from "../src/helper/svg";
 import { setPageHeading } from "../src/redux/actions/commonAction";
 import PlanAlert from "../src/components/common/PlanAlert";
+import UserTutorial from '../src/components/UserTutorial';
 
 import styles from '../styles/pages/Dashboard.module.css';
 
@@ -16,6 +17,7 @@ const Dashboard = () => {
     const [weeklyClicks, setWeeklyClicks] = useState(0)
     const [weeklyVisitor, setWeeklyVisitor] = useState(0)
     const [showAlertBar, setShowAlertBar] = useState(false);
+    const [showTutorial, setShowTutorial] = useState(false);
 
     let dispatch = useDispatch();
     useEffect(() => {
@@ -62,9 +64,22 @@ const Dashboard = () => {
         getCurrentPlan();
     }, [])
 
+    useEffect(() => {
+        const tutorialCompleted = localStorage.getItem('tutorialCompleted');
+        if (!tutorialCompleted) {
+            setShowTutorial(true);
+        }
+    }, []);
+
+    const handleTutorialClose = () => {
+        localStorage.setItem('tutorialCompleted', 'true');
+        setShowTutorial(false);
+    };
+
     return (
         <div className="pu_container">
             <PlanAlert show={showAlertBar} onClose={alertBarCloseHandler} />
+            {showTutorial && <UserTutorial onClose={handleTutorialClose} />}
             <div className="pu_analytics_white_box_list">
                 <div className="pu_analytics_white_box">
                     <div className="pu_awb_icon">

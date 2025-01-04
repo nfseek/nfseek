@@ -30,7 +30,7 @@ CommonAPI.sendMailUsingMandrill = async( params = null, settings) => {
 		}));
 		
 		transport.sendMail({
-			from: 'Support <support@pixaurl.com>',
+			from: 'Support <bhall@indiepax.com>',
 			to: params.to,
 			subject: params.subject,
 			html: params.html
@@ -57,7 +57,7 @@ CommonAPI.sendMailUsingSMTP = async (params = null, settings) => {
 			}
 		});
 		transport.sendMail({
-			from: 'Support <support@pixaurl.com>',
+			from: 'Support <bhall@indiepax.com>',
 			to: params.to,
 			subject: params.subject,
 			html: params.html
@@ -82,7 +82,7 @@ CommonAPI.sendMailUsingSendgrid = async (params = null, settings) => {
 			  })
 			);
 		transport.sendMail({
-			from: 'Support <support@pixaurl.com>',
+			from: 'Support <bhall@indiepax.com>',
 			to: params.to,
 			subject: params.subject,
 			html: params.html

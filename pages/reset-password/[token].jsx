@@ -50,7 +50,7 @@ const ResetPassword = () => {
     return (
         <>
             <Head> 
-                <title>PixaURL - Reset Password</title>   
+                <title>NFSEEK - Reset Password</title>   
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
                 <meta name="viewport" content="width=device-width, initial-scale=1"/>
                 <meta content="width=device-width, initial-scale=1.0" name="viewport" />

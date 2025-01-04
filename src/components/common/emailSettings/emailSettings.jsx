@@ -57,7 +57,7 @@ const EmailSettings = (props) => {
             data = {
                 user_id : store.userData.user_id,
                 sendgridKey: sendgridKey,
-                // sendgridSecret: sendgridSecret,
+                sendgridSecret: sendgridSecret,
                 name : value
             }
         } else if(value == 'SMTP'){
@@ -137,7 +137,7 @@ const EmailSettings = (props) => {
                                             <select className=" pu_input" value={value ? value :''} onChange={(e) => handleChange(e.target.value)}>
                                                 <option value={''}>Select email settings</option>
                                                 <option value={"Mandrill"}>Mandrill</option>
-                                                {/* <option value={'Sendgrid'}>Sendgrid</option> */}
+                                                <option value={'Sendgrid'}>Sendgrid</option>
                                                 <option value={'SMTP'}>SMTP</option>
                                             </select>
 
@@ -165,12 +165,12 @@ const EmailSettings = (props) => {
                                           <input type="text" className="pu_input" placeholder='Enter Sendgrid Key' value={sendgridKey} onChange={(e) => setSendgridKey(e.target.value)} />
                                       </div>
                                   </div>
-                                  {/* <div className="pu_input_wrapper_list">
+                                  <div className="pu_input_wrapper_list">
                                       <div className="pu_input_wrapper">
                                           <label>Sendgrid Secret</label>
                                           <input type="text" className="pu_input" placeholder='Enter Sendgrid Secret' value={sendgridSecret} onChange={(e) => setSendgridSecret(e.target.value)} />
                                       </div>
-                                  </div> */}
+                                  </div>
                                   <span style={{color:'red'}}>{error}</span><br />
 
                                   <button type="button" className="pu_btn" onClick={() => handleSubmit()}>Save Changes</button>

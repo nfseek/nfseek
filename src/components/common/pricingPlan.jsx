@@ -24,8 +24,8 @@ const Plan = () => {
    let dispatch = useDispatch();
    useEffect(() => {
        dispatch(setPageHeading({
-           pageHeading: "PixaURL - Plans",
-           title: "PixaURL - Run Your Own SaaS Platform for Building Bio URL , Mini Sites, Digital Cards",
+           pageHeading: "NFSEEK - Plans",
+           title: "NFSEEK - Run Your Own SaaS Platform for Building Bio URL , Mini Sites, Digital Cards",
        }));
    }, [dispatch]);
 
@@ -249,14 +249,14 @@ const removeCoupon =() =>{
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <meta content="width=device-width, initial-scale=1.0" name="viewport" />
             <meta name="description" content="Connect and manage all your social links in one place. Organize your social handles into a single tap. Get a link and work smart." />
-            <meta name="keywords" content="pixaurl, pixaurl.com, pixa url, biolink, bio link, miniwebsite, mini website, social link, personal link, portfolio link, bio link generator" />
+            <meta name="keywords" content="NFSEEK, NFSEEK.com, NFSEEK url, biolink, bio link, miniwebsite, mini website, social link, personal link, portfolio link, bio link generator" />
             <meta name="author" content="PixelNX Pvt. Ltd." />
             <meta name="MobileOptimized" content="320" />
          </Head>
 
          <div className="pu_container">
             <div className={styles.heading}>
-               <h3>Ready to Start With PixaURL?</h3>
+               <h3>Ready to Start With NFSEEK?</h3>
                <p>Choose the Perfect Plan for You and Your Business</p>
             </div>
             {/* <div className="pu_pagetitle_wrapper">
