@@ -8,6 +8,8 @@ import { Users, Plans, AdminSettings, Coupons } from '../../../models/DB';
 import { defaultCurrency } from '../../../src/helper/currencies';
 import { config } from 'process';
 import BillingModel from '../../../models/OrderList';
+import path from 'path';
+import { v4 as uuid } from 'uuid';
 
 const routeHandler = {}
 
@@ -138,7 +140,9 @@ routeHandler.register = async (req, res) => {
 			};
 
 			Users.create(newUser).then((user) => {
-				fs.readFile(`${process.env.folderPath}/email_template/reg.txt`, "utf8", async (err, htmlToSend) => {
+				const filePath = path.join(process.cwd(), 'public', 'email_template', 'reg.txt');
+
+				fs.readFile(filePath, "utf8", async (err, htmlToSend) => {
 					if (err) {
 						console.error(err);
 						return res.json({
@@ -259,72 +263,64 @@ routeHandler.forgot = async (req, res) => {
 	});
 	if (user) {
 		if (user.status) {
-			//if (!user.resetPasswordToken) {
-				let token = uuid();
-				user.updateOne({
-					$set: { resetPasswordToken: token },
-				}).then(() => {
-					fs.readFile(
-						`${process.env.folderPath}/email_template/forgot.txt`,
-						"utf8",
-						async (err, htmlToSend) => {
-							if (err) {
-								console.error(err);
-								res.json({
-									status: "error",
-									message: "Something went wrong while sending email.",
-									data: err
-								});
-								return;
-							}
-							let object = {
-								"{member_name}": user.name,
-								"{reset_url}": `${process.env.APP_URL}reset-password/${token}`,
-							};
-							let replaces = Common.replaceItemByObj(htmlToSend, object);
-							let params = {
-								to: user.email,
-								subject: `Password Reset Link - ${process.env.SITE_TITLE}`,
-								html: replaces
-							}
-							
-							let emailData = await AdminSettings.findOne()
-							let settings = emailData.emailSettings
-							let mailResponse
-							if (emailData.emailSettings.name == 'Mandrill') {
-								mailResponse = await CommonAPI.sendMailUsingMandrill(params, settings);
-							}
-							if(emailData.emailSettings.name == 'SMTP'){
-								mailResponse = await CommonAPI.sendMailUsingSMTP(params, settings)
-							}
-							if(emailData.emailSettings.name == 'Sendgrid'){
-								mailResponse = await CommonAPI.sendMailUsingSendgrid(params, settings)
-							}
-              //console.log("mailResponse",mailResponse);
-							if(mailResponse.accepted.length > 0) {
-								res.json({
-									status: 'success',
-									message: 'Password reset link has been sent to your email.',
-								});
-							}else {
-								res.json({
-									status: 'error',
-									message: 'Unable to send password reset link on your email, Please try again.',
-								});
-							}
-						}
-					);
+			let token = uuid();
+			user.updateOne({
+				$set: { resetPasswordToken: token },
+			}).then(() => {
+				const filePath = path.join(process.cwd(), 'public', 'email_template', 'forgot.txt');
+
+				fs.readFile(filePath, "utf8", async (err, htmlToSend) => {
+					if (err) {
+						console.error(err);
+						res.json({
+							status: "error",
+							message: "Something went wrong while sending email.",
+							data: err
+						});
+						return;
+					}
+					let object = {
+						"{member_name}": user.name,
+						"{reset_url}": `${process.env.APP_URL}reset-password/${token}`,
+					};
+					let replaces = Common.replaceItemByObj(htmlToSend, object);
+					let params = {
+						to: user.email,
+						subject: `Password Reset Link - ${process.env.SITE_TITLE}`,
+						html: replaces
+					}
+					
+					let emailData = await AdminSettings.findOne();
+					let settings = emailData.emailSettings;
+					let mailResponse;
+
+					if (emailData.emailSettings.name == 'Mandrill') {
+						mailResponse = await CommonAPI.sendMailUsingMandrill(params, settings);
+					}
+					if (emailData.emailSettings.name == 'SMTP') {
+						mailResponse = await CommonAPI.sendMailUsingSMTP(params, settings);
+					}
+					if (emailData.emailSettings.name == 'Sendgrid') {
+						mailResponse = await CommonAPI.sendMailUsingSendgrid(params, settings);
+					}
+
+					if (mailResponse.accepted.length > 0) {
+						res.json({
+							status: 'success',
+							message: 'Password reset link has been sent to your email.',
+						});
+					} else {
+						res.json({
+							status: 'error',
+							message: 'Unable to send password reset link to your email, Please try again.',
+						});
+					}
 				});
-			// } else {
-			// 	res.json({
-			// 		status: 'error',
-			// 		message: `We have sent you email already, Please check your email or try after 30 min.`,
-			// 	});
-			// }
+			});
 		} else {
 			res.json({
 				status: 'error',
-				message: `Your account is deactivated, please contact to support.`,
+				message: `Your account is deactivated, please contact support.`,
 			});
 		}
 	} else {
@@ -333,7 +329,7 @@ routeHandler.forgot = async (req, res) => {
 			message: `We couldn't find your account.`,
 		});
 	}
-}
+};
 
 routeHandler.checkResetToken = async (req, res) => {
 	req.params = req.query;
