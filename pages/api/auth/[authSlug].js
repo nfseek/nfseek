@@ -139,7 +139,7 @@ routeHandler.register = async (req, res) => {
 			};
 
 			Users.create(newUser).then((user) => {
-				fs.readFile(`${process.env.folderPath}email_template/reg.txt`, "utf8", async (err, htmlToSend) => {
+				fs.readFile(`${process.env.folderPath}/email_template/reg.txt`, "utf8", async (err, htmlToSend) => {
 					if (err) {
 						console.error(err);
 						return res.json({
@@ -276,7 +276,7 @@ routeHandler.forgot = async (req, res) => {
 					$set: { resetPasswordToken: token },
 				}).then(() => {
 					fs.readFile(
-						`${process.env.folderPath}email_template/forgot.txt`,
+						`${process.env.folderPath}/email_template/forgot.txt`,
 						"utf8",
 						async (err, htmlToSend) => {
 							if (err) {
