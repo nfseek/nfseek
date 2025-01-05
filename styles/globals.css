@@ -35,13 +35,13 @@ Copyright (c) 2022
 *********************************************************************************************/
 
 :root{
-    --main-color : #f9913a;
+    --main-color : #006989;
     --main-color-rgb : 249, 145, 58;
     --color-body : #5f6c91;
     --color-heading : #303e65;
 
-    --gradient-color1 : #ff5874;
-    --gradient-color2 : #ffad5d;
+    --gradient-color1 : #303e65;
+    --gradient-color2 : #006989;
 
     --gradient-common : linear-gradient( 0deg, var(--gradient-color1) 0%, var(--gradient-color2) 100%);
 }
@@ -1754,7 +1754,7 @@ img, svg{
 }
 
 .pu_btn_primary {
-    background: #f58123;
+    background: #006989;
     color: white;
     border: none;
 }

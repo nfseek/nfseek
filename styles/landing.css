@@ -26,14 +26,14 @@ transition: all 0.3s; */
 
 :root {
     --pix-body-color: #f8fafd;
-	--pix-primary: #f6903b;
+	--pix-primary: #006989;
 	--pix-white-color: #ffffff;
 	--pix-title-color: #303e65;
 	--pix-text-color: #5f6c91;
 	--pix-border-color: #e9ebfa;
 	--pix-bg-dark: #17263a;
-	--gradient-color1: #ff5873;
-    --gradient-color2: #ffad5d;
+	--gradient-color1: #303e65;
+    --gradient-color2: #006989;
     --gradient-common: linear-gradient(0deg,var(--gradient-color1) 0%,var(--gradient-color2) 100%);
 	--all-transition: all 0.3s;
 	--transition: all 0.3s ease-in-out;
@@ -72,7 +72,7 @@ body {
 	fontSize: 14px;
 	line-height: 1.5;
 	letter-spacing: 0.3px;
-	color: #778aab;
+	color: #006989;
 	font-family: 'Poppins', sans-serif;
 	font-weight: 400;
 	background-color: var(--pix-body-color);
