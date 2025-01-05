@@ -279,7 +279,7 @@ routeHandler.forgot = async (req, res) => {
 					$set: { resetPasswordToken: token },
 				}).then(() => {
 					fs.readFile(
-						"./public/email_template/forgot.txt",
+						path.join(process.cwd(), 'public', 'email_template', 'forgot.txt'),
 						"utf8",
 						async (err, htmlToSend) => {
 							if (err) {
