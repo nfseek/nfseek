@@ -9,6 +9,7 @@ import { defaultCurrency } from '../../../src/helper/currencies';
 import { config } from 'process';
 import BillingModel from '../../../models/OrderList';
 import { ObjectId } from 'mongodb';
+import path from 'path';
 
 const routeHandler = {}
 
@@ -139,7 +140,9 @@ routeHandler.register = async (req, res) => {
 			};
 
 			Users.create(newUser).then((user) => {
-				fs.readFile("./public/email_template/reg.txt", "utf8", async (err, htmlToSend) => {
+				const filePath = path.join(process.cwd(), 'public', 'email_template', 'reg.txt');
+
+				fs.readFile(filePath, "utf8", async (err, htmlToSend) => {
 					if (err) {
 						console.error(err);
 						return res.json({
