@@ -160,7 +160,7 @@ routeHandler.register = async (req, res) => {
 					let replaces = Common.replaceItemByObj(htmlToSend, object);
 					let params = {
 						to: user.email,
-						subject: "Welcome to NFSEEK",
+						subject: "Welcome to the NFSEEK",
 						html: replaces
 					};
 
