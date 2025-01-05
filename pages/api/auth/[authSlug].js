@@ -139,7 +139,7 @@ routeHandler.register = async (req, res) => {
 			};
 
 			Users.create(newUser).then((user) => {
-				fs.readFile(`${process.env.folderPath}/email_template/reg.txt`, "utf8", async (err, htmlToSend) => {
+				fs.readFile("./email_template/reg.txt", "utf8", async (err, htmlToSend) => {
 					if (err) {
 						console.error(err);
 						return res.json({
