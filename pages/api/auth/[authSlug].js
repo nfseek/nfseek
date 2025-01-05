@@ -8,6 +8,7 @@ import { Users, Plans, AdminSettings, Coupons } from '../../../models/DB';
 import { defaultCurrency } from '../../../src/helper/currencies';
 import { config } from 'process';
 import BillingModel from '../../../models/OrderList';
+import { ObjectId } from 'mongodb';
 
 const routeHandler = {}
 
@@ -159,7 +160,7 @@ routeHandler.register = async (req, res) => {
 					let replaces = Common.replaceItemByObj(htmlToSend, object);
 					let params = {
 						to: user.email,
-						subject: "Welcome to PixaURL",
+						subject: "Welcome to NFSEEK",
 						html: replaces
 					};
 
@@ -218,7 +219,15 @@ routeHandler.register = async (req, res) => {
 routeHandler.userAccountActive = async (req, res) => {
 	const postdata = req.body;
 	try {
-		let where = { _id: ObjectId(postdata.token) };
+		// Validate token format
+		if (!ObjectId.isValid(postdata.token)) {
+			return res.json({
+				status: "error",
+				message: "Invalid token format.",
+			});
+		}
+
+		let where = { _id: new ObjectId(postdata.token) };
 		let userData = await Users.findOne(where).catch((error) => {
 			res.json({
 				message: "Invalid token.",
@@ -226,26 +235,28 @@ routeHandler.userAccountActive = async (req, res) => {
 			});
 			return;
 		});
-		if(userData && typeof userData != 'undefined') {
+
+		if (userData) {
 			await Users.updateOne(where, { $set: { status: 1 } }).then(() => {
 				res.json({
 					status: 'success',
 					message: "User account is activated.",
 				});
 			});
-		}else {
+		} else {
 			res.json({
 				status: "error",
-				message: "Something went wrong.",
+				message: "User not found or invalid token.",
 			});
 		}
-	}catch(err) {
+	} catch (err) {
+		console.error("Error:", err);
 		res.json({
 			status: "error",
-			message: "Invalid token.",
+			message: "An error occurred while activating the account.",
 		});
 	}
-}
+};
 
 routeHandler.forgot = async (req, res) => {
 	const postdata = req.body;
