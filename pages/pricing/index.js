@@ -28,7 +28,7 @@ export default function Plan() {
                   <div className="pix_header_nav" ref={headerNav}>
                      <ul>
                         <li><Link href="/pricing" >Pricing</Link></li>
-                        <li><a href="https://doc.pixaurl.com/" target="_blank" rel="noreferrer">Document</a></li>
+                        {/* <li><a href="https://doc.pixaurl.com/" target="_blank" rel="noreferrer">Document</a></li> */}
                      </ul>
                   </div>
                   <div className="pix_header_btn">
