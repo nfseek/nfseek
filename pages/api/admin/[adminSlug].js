@@ -352,91 +352,62 @@ routeHandler.deletePlan = async (req, res) => {
 }
 
 routeHandler.updateUser = async (req, res) => {
-  let postdata = req.body;
-	let adminUser = req.vsuser;
+	let postdata = req.body;
 	try {
-		if (req._IS_ADMIN_ACCOUNT) {
-			if (typeof postdata.id != "undefined" && postdata.id != "") {
-				let where = {
-					_id: postdata.id,
-					role: 2,
-				};
-				let set = {
-					name: postdata.name,
-				};
-
-				if (
-					typeof postdata.password != "undefined" &&
-					postdata.password != ""
-				) {
-					set.password = md5(postdata.password);
-				}
-
-				await Users.updateOne(where, {
-					$set: set,
-				}).then(() => {
-					res.json({
-						status: "success",
-						message: "We have updated user successfully.",
-					});
-				});
-			} else {
-				let where = {
-					email: postdata.email,
-				};
-
-				let userExists = await Users.findOne(where);
-				if (userExists && typeof userExists._id != "undefined") {
-					res.json({
-						status: "error",
-						message:
-							"The email already exist. Please use another email.",
-					});
-				} else {
-					let access_level = [];
-					let newUser = {
-						source: "Admin",
-						parentId: adminUser._id,
-						name: postdata.name,
-						email: postdata.email,qrId: postdata.qrId, // Add qrId
-						qrImage: postdata.qrImage, // Add qrImage
-						qrUrl: postdata.qrUrl,
-						password: md5(postdata.password),
-						ip: "",
-						role: 2,
-						status: 1,
-						accessLevel: access_level,
-					};
-
-					await Users.create(newUser).then((user) => {
-						if (user) {
-							res.json({
-								status: "success",
-								message: "We have created user successfully.",
-								data: { id: user._id },
-							});
-						} else {
-							res.json({
-								status: "error",
-								message: "Something went wrong.",
-							});
-						}
-					});
-				}
-			}
-		} else {
+	  if (req._IS_ADMIN_ACCOUNT) {
+		if (typeof postdata.email != "undefined" && postdata.email != "") {
+		  let where = {
+			email: postdata.email,
+			role: 2,
+		  };
+		  
+		  let set = {
+			name: postdata.name,
+			qrId: postdata.qrId,
+			qrImage: postdata.qrImage,
+			qrUrl: postdata.qrUrl
+		  };
+  
+		  // Only add password to update if it's provided
+		  if (typeof postdata.password != "undefined" && postdata.password != "") {
+			set.password = md5(postdata.password);
+		  }
+  
+		  const result = await Users.updateOne(where, {
+			$set: set,
+		  });
+  
+		  if (result.matchedCount > 0) {
 			res.json({
-				status: "error",
-				message: "Something went wrong.",
+			  status: "success",
+			  message: "User updated successfully.",
 			});
-		}
-	} catch (err) {
-		res.json({
+		  } else {
+			res.json({
+			  status: "error",
+			  message: "User not found with the provided email.",
+			});
+		  }
+		} else {
+		  res.json({
 			status: "error",
-			message: "Server error",
+			message: "Email is required.",
+		  });
+		}
+	  } else {
+		res.json({
+		  status: "error",
+		  message: "Unauthorized access.",
 		});
+	  }
+	} catch (err) {
+	  console.error(err);
+	  res.json({
+		status: "error",
+		message: "Server error",
+	  });
 	}
-}
+  };
 
 routeHandler.addPlan = async (req, res) => {
 	let postdata = req.body;
