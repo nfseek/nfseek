@@ -11,7 +11,7 @@
 }
 .pu_branding > svg{
     width: 150px;
-    height: auto;
+    height: auto; margin-left: 60px;
 }
 /* editor preview start */
 .editor_wrapper{
