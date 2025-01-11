@@ -38,6 +38,9 @@ module.exports = (phase) => {
     const nextConfig = withPWA({
         reactStrictMode: true,
         env: env,
+        images: {
+            domains: ['media.qrtiger.com'],
+        },
         eslint: {
             ignoreDuringBuilds: true,
         },

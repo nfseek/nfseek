@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styles from './QRGenerator.module.css';
 import { generateCustomQR, uploadLogo } from '../../services/qrService';
+import { common } from '../../helper/Common'; // Fix the import statement
 
 const QRGenerator = () => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -24,10 +25,13 @@ const QRGenerator = () => {
         frameColor: '#807b05',
         frameColor2: '#e6ebf2',
         frameColorType: 'SINGLE_COLOR',
-        logoUrl: ''
+        logoUrl: '',
+        name: ''
     });
 
     const [uploadingLogo, setUploadingLogo] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveSuccess, setSaveSuccess] = useState(false);
     const fileInputRef = useRef(null);
 
     const patterns = [
@@ -142,8 +146,15 @@ const QRGenerator = () => {
             try {
                 setLoading(true);
                 setError(null);
-                console.log('Form data being sent:', formData); // Add logging to verify data
+                setSaveSuccess(false);
+                
+                // Generate QR code
                 const result = await generateCustomQR(formData);
+                
+                if (!result.imageUrl || !result.qrId || !result.qrUrl) {
+                    throw new Error('Invalid QR code response');
+                }
+
                 setGeneratedQR(result);
                 setCurrentStep(prev => prev + 1);
             } catch (err) {
@@ -159,6 +170,31 @@ const QRGenerator = () => {
 
     const handleBack = () => {
         setCurrentStep(prev => prev - 1);
+    };
+
+    const handleSaveQR = () => {
+        if (!generatedQR) return;
+        
+        setIsSaving(true);
+        setSaveSuccess(false);
+        
+        common.getAPI({
+            method: 'POST',
+            url: 'qr/save',
+            data: {
+                imageUrl: generatedQR.imageUrl,
+                qrId: generatedQR.qrId,
+                qrUrl: generatedQR.qrUrl,
+                name: formData.name || 'Untitled QR'
+            }
+        }, (resp) => {
+            if (resp.status === 'success') {
+                setSaveSuccess(true);
+            } else {
+                setError('Failed to save QR code');
+            }
+            setIsSaving(false);
+        });
     };
 
     const renderFrameCustomization = () => {
@@ -479,6 +515,11 @@ const QRGenerator = () => {
                     <h2 className={styles.stepTitle}>Your QR Code</h2>
                     {loading && <div>Generating your QR code...</div>}
                     {error && <div className={styles.error}>{error}</div>}
+                    {saveSuccess && (
+                        <div className={styles.success}>
+                            QR code saved successfully! View it in your QR list.
+                        </div>
+                    )}
                     {generatedQR && (
                         <div className={styles.finalStep}>
                             <div className={styles.qrPreview}>
@@ -491,7 +532,13 @@ const QRGenerator = () => {
                         </div>
                     )}
                     <div className={styles.buttonGroup}>
-                       
+                        <button 
+                            className={`${styles.button} ${styles.primary}`}
+                            onClick={handleSaveQR}
+                            disabled={isSaving || saveSuccess}
+                        >
+                            {isSaving ? 'Saving...' : saveSuccess ? 'Saved!' : 'Save QR'}
+                        </button>
                         {generatedQR && (
                             <a 
                                 href={generatedQR.imageUrl} 

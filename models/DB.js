@@ -24,6 +24,7 @@ import AdminSettings from './AdminSettings';
 import OrderList from './OrderList';
 import AutoIncreament from './AutoIncrement';
 import Coupons from './Coupons';
+import QRCode from './QRCode';
 
 // Models/tables
 db.Users = Users;
@@ -50,6 +51,7 @@ db.AdminSettings = AdminSettings;
 db.OrderList = OrderList;
 db.AutoIncreament = AutoIncreament;
 db.Coupons = Coupons;
+db.QRCode = QRCode;
 
 // for first time when tables are empty
 for (let collectionname in db) {

@@ -1,0 +1,77 @@
+.qrGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.qrCard {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.qrCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.qrImageWrapper {
+    padding: 20px;
+    text-align: center;
+    background: #f8f9fa;
+}
+
+.qrImage {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.qrInfo {
+    padding: 15px;
+}
+
+.qrInfo h4 {
+    margin: 0 0 10px;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.qrUrl {
+    margin: 0 0 15px;
+    font-size: 0.9rem;
+    color: #666;
+    word-break: break-all;
+}
+
+.qrActions {
+    display: flex;
+    gap: 10px;
+}
+
+.noQR {
+    text-align: center;
+    padding: 40px;
+    grid-column: 1 / -1;
+}
+
+.noQR p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.error {
+    color: #dc3545;
+    text-align: center;
+    padding: 20px;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .qrGrid {
+        grid-template-columns: 1fr;
+    }
+}
