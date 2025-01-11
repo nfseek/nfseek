@@ -102,6 +102,40 @@ const QRGenerator = () => {
 
     return (
         <div className={styles.container}>
+            <div className={styles.navigation}>
+                <div className={styles.steps}>
+                    <div className={`${styles.step} ${currentStep >= 1 ? styles.active : ''}`}>
+                        <div className={styles.stepNumber}>1</div>
+                        <span>Enter URL</span>
+                    </div>
+                    <div className={styles.stepDivider} />
+                    <div className={`${styles.step} ${currentStep >= 2 ? styles.active : ''}`}>
+                        <div className={styles.stepNumber}>2</div>
+                        <span>Pattern</span>
+                    </div>
+                    <div className={styles.stepDivider} />
+                    <div className={`${styles.step} ${currentStep >= 3 ? styles.active : ''}`}>
+                        <div className={styles.stepNumber}>3</div>
+                        <span>Eye Style</span>
+                    </div>
+                    <div className={styles.stepDivider} />
+                    <div className={`${styles.step} ${currentStep >= 4 ? styles.active : ''}`}>
+                        <div className={styles.stepNumber}>4</div>
+                        <span>Frame</span>
+                    </div>
+                    <div className={styles.stepDivider} />
+                    <div className={`${styles.step} ${currentStep >= 5 ? styles.active : ''}`}>
+                        <div className={styles.stepNumber}>5</div>
+                        <span>Colors</span>
+                    </div>
+                    <div className={styles.stepDivider} />
+                    <div className={`${styles.step} ${currentStep >= 6 ? styles.active : ''}`}>
+                        <div className={styles.stepNumber}>6</div>
+                        <span>Generate</span>
+                    </div>
+                </div>
+            </div>
+
             <h1 className={styles.title}>Create Custom QR Code</h1>
 
             {currentStep === 1 && (
