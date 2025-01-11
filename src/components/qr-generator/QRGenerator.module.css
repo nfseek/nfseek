@@ -370,3 +370,70 @@
     border: 1px solid #ddd;
     border-radius: 4px;
 }
+
+.logoUpload {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.logoUpload h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.logoUpload p {
+    margin: 0 0 20px 0;
+    color: #666;
+}
+
+.uploadArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.uploadButton,
+.changeButton {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    background-color: #054080;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.uploadButton:hover,
+.changeButton:hover {
+    background-color: #043670;
+}
+
+.uploadButton:disabled,
+.changeButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.previewContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.logoPreview {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 5px;
+}

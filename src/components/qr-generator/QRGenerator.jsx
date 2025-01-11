@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styles from './QRGenerator.module.css';
-import { generateCustomQR } from '../../services/qrService';
+import { generateCustomQR, uploadLogo } from '../../services/qrService';
 
 const QRGenerator = () => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -23,8 +23,12 @@ const QRGenerator = () => {
         frameTextFont: 'Arial',
         frameColor: '#807b05',
         frameColor2: '#e6ebf2',
-        frameColorType: 'SINGLE_COLOR'
+        frameColorType: 'SINGLE_COLOR',
+        logoUrl: ''
     });
+
+    const [uploadingLogo, setUploadingLogo] = useState(false);
+    const fileInputRef = useRef(null);
 
     const patterns = [
         { id: 'pattern0', image: '/qr-patterns/pattern1.svg' },
@@ -113,21 +117,44 @@ const QRGenerator = () => {
         }));
     };
 
+    const handleLogoUpload = async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        try {
+            setUploadingLogo(true);
+            const logoUrl = await uploadLogo(file);
+            console.log('Uploaded logo URL:', logoUrl); // Add logging to verify URL
+            setFormData(prev => ({
+                ...prev,
+                logoUrl // Store the logo URL in form data
+            }));
+        } catch (error) {
+            console.error('Error uploading logo:', error);
+            // You might want to show an error message to the user here
+        } finally {
+            setUploadingLogo(false);
+        }
+    };
+
     const handleNext = async () => {
-        if (currentStep === 5) {
+        if (currentStep === 6) {
             try {
                 setLoading(true);
                 setError(null);
-                const response = await generateCustomQR(formData);
-                setGeneratedQR(response);
-                setLoading(false);
+                console.log('Form data being sent:', formData); // Add logging to verify data
+                const result = await generateCustomQR(formData);
+                setGeneratedQR(result);
+                setCurrentStep(prev => prev + 1);
             } catch (err) {
                 setError('Failed to generate QR code. Please try again.');
+                console.error('Error:', err);
+            } finally {
                 setLoading(false);
-                return;
             }
+        } else {
+            setCurrentStep(prev => prev + 1);
         }
-        setCurrentStep(prev => prev + 1);
     };
 
     const handleBack = () => {
@@ -185,6 +212,50 @@ const QRGenerator = () => {
         );
     };
 
+    const renderLogoUpload = () => {
+        return (
+            <div className={styles.logoUpload}>
+                <h3>Upload Logo</h3>
+                <p>Add a logo to your QR code (optional)</p>
+                
+                <div className={styles.uploadArea}>
+                    <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleLogoUpload}
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                    />
+                    
+                    {formData.logoUrl ? (
+                        <div className={styles.previewContainer}>
+                            <img 
+                                src={formData.logoUrl} 
+                                alt="Logo preview" 
+                                className={styles.logoPreview}
+                            />
+                            <button 
+                                className={styles.changeButton}
+                                onClick={() => fileInputRef.current?.click()}
+                                disabled={uploadingLogo}
+                            >
+                                Change Logo
+                            </button>
+                        </div>
+                    ) : (
+                        <button 
+                            className={styles.uploadButton}
+                            onClick={() => fileInputRef.current?.click()}
+                            disabled={uploadingLogo}
+                        >
+                            {uploadingLogo ? 'Uploading...' : 'Choose Logo'}
+                        </button>
+                    )}
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.navigation}>
@@ -211,7 +282,7 @@ const QRGenerator = () => {
                     <div className={styles.stepDivider} />
                     <div className={`${styles.step} ${currentStep >= 5 ? styles.active : ''}`}>
                         <div className={styles.stepNumber}>5</div>
-                        <span>Colors</span>
+                        <span>Logo</span>
                     </div>
                     <div className={styles.stepDivider} />
                     <div className={`${styles.step} ${currentStep >= 6 ? styles.active : ''}`}>
@@ -332,7 +403,23 @@ const QRGenerator = () => {
 
             {currentStep === 5 && (
                 <div className={styles.stepContainer}>
-                    <h2 className={styles.stepTitle}>Step 5: Choose Colors</h2>
+                    <h2 className={styles.stepTitle}>Step 5: Upload Logo</h2>
+                    {renderLogoUpload()}
+                    <div className={styles.buttonGroup}>
+                        <button className={styles.button} onClick={handleBack}>Back</button>
+                        <button 
+                            className={`${styles.button} ${styles.primary}`}
+                            onClick={handleNext}
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {currentStep === 6 && (
+                <div className={styles.stepContainer}>
+                    <h2 className={styles.stepTitle}>Step 6: Choose Colors</h2>
                     <div className={styles.colorPickers}>
                         <div className={styles.colorField}>
                             <label>Background Color</label>
@@ -387,7 +474,7 @@ const QRGenerator = () => {
                 </div>
             )}
 
-            {currentStep === 6 && (
+            {currentStep === 7 && (
                 <div className={styles.stepContainer}>
                     <h2 className={styles.stepTitle}>Your QR Code</h2>
                     {loading && <div>Generating your QR code...</div>}
