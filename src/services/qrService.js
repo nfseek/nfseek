@@ -35,7 +35,12 @@ export const generateCustomQR = async (config) => {
                 eye_outer: config.eyes.outer,
                 eye_inner: config.eyes.inner,
                 qrData: config.pattern,
-                frame: config.frame, // Add frame parameter
+                frame: config.frame,
+                frameText: config.frameText,
+                frameTextFont: config.frameTextFont,
+                frameColor: hexToRgb(config.frameColor),
+                frameColor2: hexToRgb(config.frameColor2),
+                frameColorType: config.frameColorType,
                 logo: '',
                 transparentBkg: false,
                 qrCategory: 'url'

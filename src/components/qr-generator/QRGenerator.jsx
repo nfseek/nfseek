@@ -19,6 +19,11 @@ const QRGenerator = () => {
             primary: '#054080',
             secondary: '#FFFFFF',
         },
+        frameText: 'SCAN ME',
+        frameTextFont: 'Arial',
+        frameColor: '#807b05',
+        frameColor2: '#e6ebf2',
+        frameColorType: 'SINGLE_COLOR'
     });
 
     const patterns = [
@@ -40,14 +45,36 @@ const QRGenerator = () => {
     const eyeCombinations = [
         { id: 'eye1', image: '/qr-eyes/eye1.svg', outer: 'eyeOuter0', inner: 'eyeInner0' },
         { id: 'eye2', image: '/qr-eyes/eye2.svg', outer: 'eyeOuter0', inner: 'eyeInner1' },
-        { id: 'eye3', image: '/qr-eyes/eye3.svg', outer: 'eyeOuter1', inner: 'eyeInner1' },
+        { id: 'eye3', image: '/qr-eyes/eye3.svg', outer: 'eyeOuter1', inner: 'eyeInner0' },
         { id: 'eye4', image: '/qr-eyes/eye4.svg', outer: 'eyeOuter1', inner: 'eyeInner1' },
         { id: 'eye5', image: '/qr-eyes/eye5.svg', outer: 'eyeOuter2', inner: 'eyeInner1' },
-        // Add more combinations as needed
+        { id: 'eye6', image: '/qr-eyes/eye6.svg', outer: 'eyeOuter2', inner: 'eyeInner2' },
+        { id: 'eye7', image: '/qr-eyes/eye7.svg', outer: 'eyeOuter3', inner: 'eyeInner3' },
+        { id: 'eye8', image: '/qr-eyes/eye8.svg', outer: 'eyeOuter4', inner: 'eyeInner4' },
+        { id: 'eye9', image: '/qr-eyes/eye9.svg', outer: 'eyeOuter5', inner: 'eyeInner5' },
+        { id: 'eye10', image: '/qr-eyes/eye10.svg', outer: 'eyeOuter6', inner: 'eyeInner6' },
+        { id: 'eye11', image: '/qr-eyes/eye11.svg', outer: 'eyeOuter7', inner: 'eyeInner1' },
+        { id: 'eye12', image: '/qr-eyes/eye12.svg', outer: 'eyeOuter7', inner: 'eyeInner7' },
+        { id: 'eye13', image: '/qr-eyes/eye13.svg', outer: 'eyeOuter8', inner: 'eyeInner1' },
+        { id: 'eye14', image: '/qr-eyes/eye14.svg', outer: 'eyeOuter8', inner: 'eyeInner8' },
+        { id: 'eye15', image: '/qr-eyes/eye15.svg', outer: 'eyeOuter9', inner: 'eyeInner9' },
     ];
 
     const frames = [
-
+        { id: 1, image: '/qr-frames/1.svg' },
+        { id: 2, image: '/qr-frames/2.svg' },
+        { id: 3, image: '/qr-frames/3.svg' },
+        { id: 4, image: '/qr-frames/4.svg' },
+        { id: 5, image: '/qr-frames/5.svg' },
+        { id: 6, image: '/qr-frames/6.svg' },
+        { id: 7, image: '/qr-frames/7.svg' },
+        { id: 8, image: '/qr-frames/8.svg' },
+        { id: 9, image: '/qr-frames/9.svg' },
+        { id: 10, image: '/qr-frames/10.svg' },
+        { id: 11, image: '/qr-frames/11.svg' },
+        { id: 12, image: '/qr-frames/12.svg' },
+        { id: 13, image: '/qr-frames/13.svg' },
+        { id: 14, image: '/qr-frames/14.svg' },
         { id: 15, image: '/qr-frames/15.svg' },
         { id: 16, image: '/qr-frames/16.svg' },
     ];
@@ -79,6 +106,13 @@ const QRGenerator = () => {
         }
     };
 
+    const handleFrameCustomization = (type, value) => {
+        setFormData(prev => ({
+            ...prev,
+            [type]: value
+        }));
+    };
+
     const handleNext = async () => {
         if (currentStep === 5) {
             try {
@@ -98,6 +132,57 @@ const QRGenerator = () => {
 
     const handleBack = () => {
         setCurrentStep(prev => prev - 1);
+    };
+
+    const renderFrameCustomization = () => {
+        if (!formData.frame) return null;
+        
+        return (
+            <div className={styles.frameCustomization}>
+                <div className={styles.inputGroup}>
+                    <label>Frame Text (max 15 chars)</label>
+                    <input
+                        type="text"
+                        maxLength={15}
+                        value={formData.frameText}
+                        onChange={(e) => handleFrameCustomization('frameText', e.target.value)}
+                        placeholder="SCAN ME"
+                    />
+                </div>
+                
+                <div className={styles.inputGroup}>
+                    <label>Frame Text Font</label>
+                    <select 
+                        value={formData.frameTextFont}
+                        onChange={(e) => handleFrameCustomization('frameTextFont', e.target.value)}
+                    >
+                        <option value="Arial">Arial</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                    </select>
+                </div>
+
+                <div className={styles.colorGroup}>
+                    <div>
+                        <label>Frame Color</label>
+                        <input
+                            type="color"
+                            value={formData.frameColor}
+                            onChange={(e) => handleFrameCustomization('frameColor', e.target.value)}
+                        />
+                    </div>
+                    
+                    <div>
+                        <label>Frame Color 2</label>
+                        <input
+                            type="color"
+                            value={formData.frameColor2}
+                            onChange={(e) => handleFrameCustomization('frameColor2', e.target.value)}
+                        />
+                    </div>
+                </div>
+            </div>
+        );
     };
 
     return (
@@ -231,6 +316,7 @@ const QRGenerator = () => {
                             </div>
                         ))}
                     </div>
+                    {renderFrameCustomization()}
                     <div className={styles.buttonGroup}>
                         <button className={styles.button} onClick={handleBack}>Back</button>
                         <button 

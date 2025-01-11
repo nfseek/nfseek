@@ -317,3 +317,56 @@
 .step.active + .stepDivider {
     background: #054080;
 }
+
+.frameCustomization {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.inputGroup {
+    margin-bottom: 15px;
+}
+
+.inputGroup label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.inputGroup input,
+.inputGroup select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.colorGroup {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.colorGroup > div {
+    flex: 1;
+}
+
+.colorGroup label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.colorGroup input[type="color"] {
+    width: 100%;
+    height: 40px;
+    padding: 2px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
