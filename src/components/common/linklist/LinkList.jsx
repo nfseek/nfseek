@@ -189,7 +189,7 @@ const LinkList = (props) => {
                                         <path d="M8 12h8"/>
                                         <path d="M12 8v8"/>
                                     </svg>
-                                    QR
+                                    Attach QR
                                 </span>
                             </button>
                             <div className="pu_switch">
@@ -207,9 +207,9 @@ const LinkList = (props) => {
                             <Tooltip title="Clone Link" placement="top" arrow>
                                 <div className="pu_btn_icon" onClick={() => duplicateLink(link._id)}>{svg.icon_duplicate}</div>
                             </Tooltip>
-                            <Tooltip title="Delete" placement="top" arrow>
+                            {/* <Tooltip title="Delete" placement="top" arrow>
                                 <div className="pu_btn_icon" onClick={() => deleteLink(link._id)}>{svg.icon_delete}</div>
-                            </Tooltip>
+                            </Tooltip> */}
                         </div>
                     </div>
                 )}
