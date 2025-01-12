@@ -59,6 +59,7 @@ const Header = (props) => {
     const subMenuAnalytics = [
         { href: '/myqr', label: 'My QR Codes' },
         { href: '/qr-generator', label: 'QR Generator' },
+        { href: '/qr-list', label: 'My QR List' },
         { href: '/leaderboard', label: 'Leaderboard' },
     ];
 
