@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { confirmPopupStatus, updateMyStatus } from '../../../redux/actions/commonAction';
 import { useDispatch } from 'react-redux';
 import RenameIcon from '../rename_icon/RenameIcon';
+import AttachQRModal from '../qr/AttachQRModal';
 
 const LinkList = (props) => {
     let dispatch = useDispatch();
@@ -20,6 +21,8 @@ const LinkList = (props) => {
     const [totalPageCount, setTotalPageCount] = useState(0);
 
     const [noData, setNoData] = useState(false);
+    const [isAttachQRModalOpen, setIsAttachQRModalOpen] = useState(false);
+    const [selectedLinkUrl, setSelectedLinkUrl] = useState('');
     
     /* get template start */
     const fetchLinks = async (page, listPerPage=perPage, nchange=false) => {
@@ -164,6 +167,31 @@ const LinkList = (props) => {
                                 <div className={styles.analytics_link}>{svg.icon_analytics}</div>
                             </Tooltip> */}
                             <Link href={'/edit/'+link._id}><a className={"pu_btn pu_btn_link " + styles.pu_btn}>Edit</a></Link>
+                            <button 
+                                className={"pu_btn pu_btn_link " + styles.pu_btn}
+                                onClick={() => {
+                                    setSelectedLinkUrl(process.env.APP_URL + link.slug);
+                                    setIsAttachQRModalOpen(true);
+                                }}
+                            >
+                                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                                    <svg 
+                                        width="16" 
+                                        height="16" 
+                                        viewBox="0 0 24 24" 
+                                        fill="none" 
+                                        stroke="currentColor" 
+                                        strokeWidth="2" 
+                                        strokeLinecap="round" 
+                                        strokeLinejoin="round"
+                                    >
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                        <path d="M8 12h8"/>
+                                        <path d="M12 8v8"/>
+                                    </svg>
+                                    QR
+                                </span>
+                            </button>
                             <div className="pu_switch">
                                 <input 
                                     type="checkbox" 
@@ -197,6 +225,15 @@ const LinkList = (props) => {
                 <Pagination count={totalPageCount} page={pageNo} onChange={handlePageChange} />
                 : null
             }
+
+            <AttachQRModal 
+                isOpen={isAttachQRModalOpen}
+                onClose={() => {
+                    setIsAttachQRModalOpen(false);
+                    setSelectedLinkUrl('');
+                }}
+                profileUrl={selectedLinkUrl}
+            />
         </>
     );
 }
