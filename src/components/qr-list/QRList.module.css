@@ -11,6 +11,8 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
 }
 
 .qrCard:hover {
@@ -32,6 +34,9 @@
 
 .qrInfo {
     padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .qrInfo h4 {
@@ -50,6 +55,8 @@
 .qrActions {
     display: flex;
     gap: 10px;
+    justify-content: center;
+    margin-top: auto;
 }
 
 .noQR {

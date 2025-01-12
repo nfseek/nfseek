@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { common } from '../../helper/Common';
 import Link from 'next/link';
 import styles from './QRList.module.css';
+import EditQRModal from './EditQRModal';
 
 const QRList = ({ setQRCount }) => {
     const [qrCodes, setQRCodes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedQR, setSelectedQR] = useState(null);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
     useEffect(() => {
         fetchQRCodes();
@@ -53,12 +56,15 @@ const QRList = ({ setQRCount }) => {
                         <h4>{qr.name || 'Untitled QR'}</h4>
                         <p className={styles.qrUrl}>{qr.qrUrl}</p>
                         <div className={styles.qrActions}>
-                            <Link 
-                                href={`/qr-generator?edit=${qr.qrId}`}
+                            <button 
+                                onClick={() => {
+                                    setSelectedQR(qr);
+                                    setIsEditModalOpen(true);
+                                }}
                                 className="pu_btn pu_btn_secondary"
                             >
-                                Edit
-                            </Link>
+                                Edit QR Url
+                            </button>
                             <a 
                                 href={qr.imageUrl}
                                 download
@@ -80,6 +86,16 @@ const QRList = ({ setQRCount }) => {
                     </Link>
                 </div>
             )}
+            
+            <EditQRModal
+                isOpen={isEditModalOpen}
+                onClose={() => {
+                    setIsEditModalOpen(false);
+                    setSelectedQR(null);
+                }}
+                qrData={selectedQR}
+                onSuccess={fetchQRCodes}
+            />
         </div>
     );
 };
