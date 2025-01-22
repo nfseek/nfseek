@@ -25,37 +25,33 @@ transition: all 0.3s; */
 
 
 :root {
-    --pix-body-color: #f8fafd;
-	--pix-primary: #006989;
-	--pix-white-color: #ffffff;
-	--pix-title-color: #303e65;
-	--pix-text-color: #5f6c91;
-	--pix-border-color: #e9ebfa;
-	--pix-bg-dark: #17263a;
-	--gradient-color1: #303e65;
-    --gradient-color2: #006989;
+    --pix-body-color: #eff2e0;
+    --pix-primary: #98d400;
+    --pix-white-color: #ffffff;
+    --pix-title-color: #98d400;
+    --pix-text-color: #a6c35f;
+    --pix-border-color: #e9ebfa;
+    --pix-bg-dark: #243b04;
+    --gradient-color1: #98d400;
+    --gradient-color2: #599300;
     --gradient-common: linear-gradient(0deg,var(--gradient-color1) 0%,var(--gradient-color2) 100%);
-	--all-transition: all 0.3s;
-	--transition: all 0.3s ease-in-out;
+    --all-transition: all 0.3s;
+    --transition: all 0.3s ease-in-out;
 
-	--pix-purple: #944be4;
-	--pix-purple-light: 148, 75, 228;
+    --pix-purple: #000066;
+    --pix-purple-light: 0, 0, 102;
 
-	--pix-blue: #797ff2;
-	--pix-blue-light: 121, 127, 242;
+    --pix-blue: #000066;
+    --pix-blue-light: 0, 0, 102;
 
-    --pix-success: #4ce6a1;
-	--pix-success-light: 13, 205, 148;
+    --pix-success: #98d400;
+    --pix-success-light: 152, 212, 0;
 
-	--pix-pink: #fe6a94;
-	--pix-pink-light: 239, 78, 184;
+    --pix-pink: #c9eb03;
+    --pix-pink-light: 201, 235, 3;
 
-	--pix-pink: #ef4eb8;
-	--pix-light-pink: 239, 78, 184;
-
-    --pix-secondary: #22e8e1;
-	--pix-secondary-light:34, 232, 225;
-
+    --pix-secondary: #599300;
+    --pix-secondary-light: 89, 147, 0;
 }
 
 
@@ -72,7 +68,7 @@ body {
 	fontSize: 14px;
 	line-height: 1.5;
 	letter-spacing: 0.3px;
-	color: #006989;
+	color: #206426;
 	font-family: 'Poppins', sans-serif;
 	font-weight: 400;
 	background-color: var(--pix-body-color);
@@ -1277,4 +1273,3 @@ img.pix_sec2_img1 {
     /* section16 end*/
 
 }
-
