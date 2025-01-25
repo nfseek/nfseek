@@ -3,6 +3,7 @@ import '../styles/globalStyles.css';
 import '../styles/globals.css';
 import '../styles/fonts.css';
 import '../styles/landing.css';
+import '../styles/swiper-custom.css';
 
 import { store, persistor } from "../src/redux/store";
 import { PersistGate } from 'redux-persist/integration/react';
