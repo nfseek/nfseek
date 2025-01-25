@@ -65,7 +65,7 @@ html , body {
 body {
 	margin: 0;
 	padding: 0;
-	fontSize: 14px;
+	font-Size: 14px;
 	line-height: 1.5;
 	letter-spacing: 0.3px;
 	color: #206426;
@@ -217,7 +217,7 @@ img {
     display: inline-block;
     text-align: center;
     text-transform: capitalize;
-    fontSize: 15px;
+    font-size: 15px;
     font-weight: 500;
     z-index: 1;
     border: none;

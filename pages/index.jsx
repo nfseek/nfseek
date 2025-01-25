@@ -17,6 +17,7 @@ const Home = () => {
   const [isEnabled, setIsEnabled] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeTest, setActiveTest] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
   const dispatch = useDispatch();
 
   const [landTemp, setLandTemp] = useState([
@@ -175,12 +176,39 @@ const Home = () => {
     checkPlanFeature();
   }, []);
 
-  const images = [
+  // Desktop images (1920x600)
+  const desktopImages = [
     './images/landing/slide1.jpg',
     './images/landing/slide2.jpg',
     './images/landing/slide3.jpg',
     './images/landing/slide4.jpg'
   ];
+
+  // Mobile images (768x800)
+  const mobileImages = [
+    './images/landing/mobile/slide1.jpg',
+    './images/landing/mobile/slide2.jpg',
+    './images/landing/mobile/slide3.jpg',
+    './images/landing/mobile/slide4.jpg'
+  ];
+
+  // Check if mobile on mount and window resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Initial check
+    checkMobile();
+
+    // Add resize listener
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Use appropriate images based on screen size
+  const images = isMobile ? mobileImages : desktopImages;
 
   return (
     <>
@@ -236,7 +264,7 @@ const Home = () => {
             {images.map((image, index) => (
               <div
                 key={index}
-                className={styles.banner_slide}
+                className={`${styles.banner_slide} ${isMobile ? styles.mobile_slide : ''}`}
                 style={{
                   opacity: currentSlide === index ? 1 : 0,
                   zIndex: currentSlide === index ? 1 : 0,
