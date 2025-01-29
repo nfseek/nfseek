@@ -1,25 +1,25 @@
 html {
-	--black: hsl(0, 0%, 0%);
-	--white: #e4f4e1;
-	--darkest: #000066;
-	--darker: #000066;
-	--dark: #303e65;
-	--medium: #599300;
-	--light: #98d400;
-	--lighter: #c9eb03;
+	--black: #6d6d6d;
+	--white: #fefdf8;
+	--darkest: #BB6649;
+	--darker: #B24838;
+	--dark: #B5A98E;
+	--medium: #BB6649;
+	--light: #B5A98E;
+	--lighter: #FEFDF8;
 	--lightest: var(--white);
 	
-	--primary: #000066;
-	--primary-light: #599300;
-	--primary-trans: rgba(0,0,102,0.4);
+	--primary: #B24838;
+	--primary-light: #BB6649;
+	--primary-trans: rgba(178, 72, 56, 0.4);
 	
-	--yellow: #c9eb03;
-	--orange: #98d400;
-	--teal: #599300;
+	--yellow: #B5A98E;
+	--orange: #BB6649;
+	--teal: #B24838;
 	
-	--bg: var(--darkest);
-	--color: var(--lightest);
-	--surface: var(--darker);
+	--bg: var(--white);
+	--color: var(--black);
+	--surface: var(--light);
 }
 
 html {

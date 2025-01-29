@@ -25,33 +25,33 @@ transition: all 0.3s; */
 
 
 :root {
-    --pix-body-color: #eff2e0;
-    --pix-primary: #98d400;
-    --pix-white-color: #ffffff;
-    --pix-title-color: #98d400;
-    --pix-text-color: #a6c35f;
-    --pix-border-color: #e9ebfa;
-    --pix-bg-dark: #243b04;
-    --gradient-color1: #98d400;
-    --gradient-color2: #599300;
+    --pix-body-color: #B5A98E;
+    --pix-primary: #B24838;
+    --pix-white-color: #FEFDF8;
+    --pix-title-color: #BB6649;
+    --pix-text-color: #6D6D6D;
+    --pix-border-color: #B5A98E;
+    --pix-bg-dark: #6D6D6D;
+    --gradient-color1: #B24838;
+    --gradient-color2: #BB6649;
     --gradient-common: linear-gradient(0deg,var(--gradient-color1) 0%,var(--gradient-color2) 100%);
     --all-transition: all 0.3s;
     --transition: all 0.3s ease-in-out;
 
-    --pix-purple: #000066;
-    --pix-purple-light: 0, 0, 102;
+    --pix-purple: #B24838;
+    --pix-purple-light: 178, 72, 56;
 
-    --pix-blue: #000066;
-    --pix-blue-light: 0, 0, 102;
+    --pix-blue: #BB6649;
+    --pix-blue-light: 187, 102, 73;
 
-    --pix-success: #98d400;
-    --pix-success-light: 152, 212, 0;
+    --pix-success: #B5A98E;
+    --pix-success-light: 181, 169, 142;
 
-    --pix-pink: #c9eb03;
-    --pix-pink-light: 201, 235, 3;
+    --pix-pink: #FEFDF8;
+    --pix-pink-light: 254, 253, 248;
 
-    --pix-secondary: #599300;
-    --pix-secondary-light: 89, 147, 0;
+    --pix-secondary: #6D6D6D;
+    --pix-secondary-light: 109, 109, 109;
 }
 
 
@@ -68,7 +68,7 @@ body {
 	font-Size: 14px;
 	line-height: 1.5;
 	letter-spacing: 0.3px;
-	color: #206426;
+	color: #6D6D6D;
 	font-family: 'Poppins', sans-serif;
 	font-weight: 400;
 	background-color: var(--pix-body-color);
