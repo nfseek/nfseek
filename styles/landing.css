@@ -1116,12 +1116,12 @@ img.pix_sec2_img1 {
         width: 80px;
         height: 30px;
         border-radius: 30px;
-        background-color: rgba(249,145,58,.2);
+        background-color: #BB6649;
         align-items: center;
         justify-content: center;
         gap: 5px;
         cursor: pointer;
-        color: var(--pix-primary);
+        color: #fefdf8;
         fontSize: 14px;
         font-weight: 500;
         line-height: 11px;
