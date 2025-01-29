@@ -265,7 +265,7 @@ const Header = (props) => {
                                                 <p>Hi, <span>{cData.userData.name.split(' ')[0]}</span></p>
                                             </div>
                                             <div className={styles.header_avatar_arrow}>
-                                                <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M4.46201 4.99102L0.988007 0.986023H7.99701L4.46201 4.99102Z" fill="#9AA4CC" /></svg>
+                                                <svg width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" clipRule="evenodd" d="M4.46201 4.99102L0.988007 0.986023H7.99701L4.46201 4.99102Z" fill="#B24838" /></svg>
                                             </div>
                                         </div>
                                         <div className={'pu_dropdown_dd ' + styles.profile_dropdown}>

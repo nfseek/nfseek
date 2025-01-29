@@ -92,7 +92,7 @@
     content: "";
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-top: 5px solid #9aa4cc;
+    border-top: 5px solid #B24838;
 }
 .profile_body{
     padding: 30px;
@@ -129,7 +129,7 @@
 .element_item > p{
     margin: 0;
     fontSize: 16px;
-    color: #9aa4cc;
+    color: #B24838;
 }
   
 /* element list end */

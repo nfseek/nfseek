@@ -37,7 +37,7 @@ Copyright (c) 2022
 :root{
     --main-color: #B24838;
     --main-color-rgb: 178, 72, 56;
-    --color-body: #6D6D6D;
+    --color-body: #B24838;
     --color-heading: #BB6649;
 
     --gradient-color1: #B24838;
@@ -65,9 +65,9 @@ body {
     padding: 0;
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #FEFDF8;
+    background-color:#fefdf8;
     color: var(--color-body);
-    fontSize: 14px;
+    font-size: 14px;
     line-height: 1.4;
     height: 100%;
     position: relative;
@@ -260,7 +260,7 @@ img, svg{
 .pu_btn_border{
     background-image: none;
     border: 1px solid #e5eaf2;
-    color: #9aa4cc;
+    color: #B24838;
     background-color: #ffffff;
 }
 .pu_btn_border:hover{
@@ -341,7 +341,7 @@ img, svg{
     border-color: var(--main-color);
 }
 .pu_input_wrapper > .pu_input::-webkit-input-placeholder{
-    color: #c7cbe1;
+    color: #B24838;;
 }
 .pu_input_wrapper > textarea.pu_input{
     resize: vertical;
@@ -378,7 +378,7 @@ img, svg{
     display: inline-flex;
     align-items: center;
     cursor: pointer;
-    color: #9aa4cc;
+    color: #B24838;
     gap: 10px;
     position: relative;
 }
@@ -706,7 +706,7 @@ img, svg{
 }
 .pu_datatable_wrapper .rdt_TableCol{
     fontSize: 14px;
-    color: #9aa4cc;
+    color: #B24838;
 }
 .pu_datatable_wrapper .rdt_TableCol_Sortable > span{
     fontSize: 8px;
@@ -1227,7 +1227,7 @@ img, svg{
 }
 .pu_analytics_white_box > .pu_awb_details > p{
     margin: 0;
-    color: #9aa4cc;
+    color: #B24838;
 }
   
 /* white box end */

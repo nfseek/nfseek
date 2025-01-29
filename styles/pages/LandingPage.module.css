@@ -462,7 +462,7 @@
 }
 .core_feature_right p{
     margin: 0 0 30px;
-    /* color: #9aa4cc; */
+    /* color: #B24838; */
     fontSize: 15px;
     line-height: 1.625;
 }
@@ -809,7 +809,7 @@
 .footer_main_box .footer_list_1 p {
     font-size: 14px;
     line-height: 22px;
-    /* color: #9aa4cc; */
+    /* color: #B24838; */
     font-weight: 400;
     width: 100%;
 }
@@ -849,7 +849,7 @@
 .footer_info p {
     fontSize: 14px;
     line-height: 1.65;
-    /* color: #9aa4cc; */
+    /* color: #B24838; */
     font-weight: 400;
     margin: 0;
 }
@@ -879,7 +879,7 @@
 .footer__wr .footer_copy__right p {
     fontSize: 13px;
     line-height: 1.65;
-    color: #9aa4cc;
+    color: #B24838;
     font-weight: 400;
     margin: 0;
     text-align: center;

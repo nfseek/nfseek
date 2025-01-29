@@ -171,7 +171,7 @@
     transition: all 0.3s cubic-bezier(0.25,0.8,0.25,1);
 }
 .header_avatar_arrow > svg path{
-    fill:#9aa4cc;
+    fill:#B24838;
 }
 
 .header_right_action .profile_dropdown{
@@ -270,7 +270,7 @@
     content: '';
     border-style: solid;
     border-width: 5px 5px 0 5px;
-    border-color: #9AA4CC transparent transparent transparent;
+    border-color: #B24838 transparent transparent transparent;
     margin-left: 5px;
     transition: transform 0.2s;
 }

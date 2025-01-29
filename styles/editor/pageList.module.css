@@ -43,7 +43,7 @@
     top: 5px;
     width: 3px;
     height: 36px;
-    background-color: #9aa4cc;
+    background-color: #B24838;
     border-radius: 5px;
 }
 .page_item.active:before{
@@ -106,5 +106,5 @@
     padding: 0 15px;
 }
 .add_page input::-webkit-input-placeholder{
-    color: #9aa4cc;
+    color: #B24838;
 }
