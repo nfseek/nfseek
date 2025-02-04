@@ -220,7 +220,7 @@ const Home = () => {
         <div className={styles.header}>
           <div className="pu_container" ref={headerContainer}>
             <div className={styles.header_inner}>
-              <div className={styles.logo}>
+            <div className={styles.logo}>
                 <Link href="/"><a>{svg.logo}</a></Link>
               </div>
               <div className={styles.nav_toggle} onClick={navToggle}>
@@ -448,42 +448,42 @@ const Home = () => {
                   <div className={styles.features_box_item}>
                       <img src="./images/landing/features_1.png" alt="icons" />
                       <h3>Analyze Growth</h3>
-                      <p>Examine your daily graph of profile visits and weekly clicks.</p>
+                      <p>Share your emergency contacts and medical information with ease!</p>
                     </div>
                 </div>
                 <div className={styles.features_box}>
                     <div className={styles.features_box_item}>
                       <img src="./images/landing/features_2.png" alt="icons" />
                       <h3>Multiple links</h3>
-                      <p>Generate as many links you wish to share with your preferred audience.</p>
+                      <p>Update Your Safety Profile Anytime.</p>
                     </div>
                 </div>
                 <div className={styles.features_box}>
                   <div className={styles.features_box_item}>
                       <img src="./images/landing/features_3.png" alt="icons" />
                       <h3>App Synchronization</h3>
-                      <p>Share your favorite music, podcasts, videos, and saved pins.</p>
+                      <p>Customize Your Own Groups Safety Tags!</p>
                     </div>
                 </div>
                 <div className={styles.features_box}>
                     <div className={styles.features_box_item}>
                       <img src="./images/landing/features_4.png" alt="icons" />
                       <h3>Associate globally</h3>
-                      <p>Influence and Connect with a large audience in the world</p>
+                      <p>GPS pindrop where the incident occured upon scan.</p>
                     </div>
                 </div>
                 <div className={styles.features_box}>
                     <div className={styles.features_box_item}>
                       <img src="./images/landing/features_5.png" alt="icons" />
                       <h3>Bring in smart wealth</h3>
-                      <p>Monetize your link by connecting it to other payment apps and smartly earn profits.</p>
+                      <p>Update your profile at any time in just seconds!</p>
                     </div>
                 </div>
                 <div className={styles.features_box}>
                   <div className={styles.features_box_item}>
                       <img src="./images/landing/features_6.png" alt="icons" />
                       <h3>Share your Ideas with the world</h3>
-                      <p>A single link can take people to your ideas on different pages.</p>
+                      <p>Create a activity group and alert upon any incident.</p>
                     </div>
                 </div>
             </div>
