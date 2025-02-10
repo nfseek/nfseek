@@ -232,15 +232,15 @@ const Home = () => {
               <div className={styles.nav} ref={headerNav}>
                 <ul>
                   <li><a onClick={() => scrollToSection("stab_home")}>Home</a></li>
-                  <li><a onClick={() => scrollToSection("stab_template")}>Templates</a></li>
+                  <li><a onClick={() => scrollToSection("stab_template")}>Create Your Safety Profile</a></li>
                   <li><a onClick={() => scrollToSection("stab_howitwork")}>How It Works</a></li>
                   <li><a onClick={() => scrollToSection("stab_features")}>Features</a></li>
-                  {isEnabled && (
+                  {/* {isEnabled && (
                     isUserLogin ? 
                       <li><Link href="/checkout">Pricing</Link></li>
                       :
                       <li><Link href="/pricing">Pricing</Link></li>
-                  )}
+                  )} */}
                 </ul>
               </div>
               <div className={styles.header_action}>
@@ -310,10 +310,10 @@ const Home = () => {
               </div>
               <div className={styles.core_feature_right}>
                 <div className={styles.main_heading}>
-                  <h3>Our core features</h3>
+                  <h3>What are Safety Tags?</h3>
                 </div>
-                <p>NFSEEK provides a single location to concentrate your follower’s attention on your every social media account. Also, you can customize your profile with the available creative templates. Here you can edit the content and add the links to your website or social media handles. It helps you keep in touch with your followers/subscribers for longer.</p>
-                <Link href="/auth/login"><a className="pu_btn">Know More</a></Link>
+                <p>From adrenaline junkies and rescue workers to construction professionals, cyclists of all ages, and more, our wearable Safety Tags provide peace of mind. Designed for multiple access points—on helmets, clothing, or gear—they allow first responders to quickly retrieve essential health and emergency information when every second matters.</p>
+                <Link href="/auth/login"><a className="pu_btn">Order Now</a></Link>
               </div>
             </div>
           </div>
@@ -370,7 +370,7 @@ const Home = () => {
                     {svg.landing_temp_icon}
                   </div>
                   <div className={styles.works_box_data}>
-                    <h3>Select a Template</h3>
+                    <h3>Start With A Template</h3>
                     <p>Choose a template from the available 10+ designs, we provide.</p>
                   </div>
                 </div>
@@ -379,7 +379,7 @@ const Home = () => {
                     {svg.landing_edit_icon}
                   </div>
                   <div className={styles.works_box_data}>
-                    <h3>Edit template</h3>
+                    <h3>Customize</h3>
                     <p>Customize the template with added text and add links.</p>
                   </div>
                 </div>
@@ -388,7 +388,7 @@ const Home = () => {
                     {svg.landing_share_icon}
                   </div>
                   <div className={styles.works_box_data}>
-                    <h3>Copy & Share </h3>
+                    <h3>Copy & Program Device</h3>
                     <p>Tadda!!!!! You are ready to share the single link with your visitors and get more engagement. </p>
                   </div>
                 </div>
@@ -447,42 +447,42 @@ const Home = () => {
               <div className={styles.features_box}>
                   <div className={styles.features_box_item}>
                       <img src="./images/landing/features_1.png" alt="icons" />
-                      <h3>Analyze Growth</h3>
+                      <h3>Log any incidents</h3>
                       <p>Share your emergency contacts and medical information with ease!</p>
                     </div>
                 </div>
                 <div className={styles.features_box}>
                     <div className={styles.features_box_item}>
                       <img src="./images/landing/features_2.png" alt="icons" />
-                      <h3>Multiple links</h3>
+                      <h3>Multiple Contacts</h3>
                       <p>Update Your Safety Profile Anytime.</p>
                     </div>
                 </div>
                 <div className={styles.features_box}>
                   <div className={styles.features_box_item}>
                       <img src="./images/landing/features_3.png" alt="icons" />
-                      <h3>App Synchronization</h3>
+                      <h3>App Coming Soon</h3>
                       <p>Customize Your Own Groups Safety Tags!</p>
                     </div>
                 </div>
                 <div className={styles.features_box}>
                     <div className={styles.features_box_item}>
                       <img src="./images/landing/features_4.png" alt="icons" />
-                      <h3>Associate globally</h3>
+                      <h3>Alert Your Group</h3>
                       <p>GPS pindrop where the incident occured upon scan.</p>
                     </div>
                 </div>
                 <div className={styles.features_box}>
                     <div className={styles.features_box_item}>
                       <img src="./images/landing/features_5.png" alt="icons" />
-                      <h3>Bring in smart wealth</h3>
+                      <h3>Edit anytime</h3>
                       <p>Update your profile at any time in just seconds!</p>
                     </div>
                 </div>
                 <div className={styles.features_box}>
                   <div className={styles.features_box_item}>
                       <img src="./images/landing/features_6.png" alt="icons" />
-                      <h3>Share your Ideas with the world</h3>
+                      <h3>Works anywhere a cell phone will</h3>
                       <p>Create a activity group and alert upon any incident.</p>
                     </div>
                 </div>
@@ -507,7 +507,7 @@ const Home = () => {
                   </div>
                   <div className={styles.footer_info}>
                     <h3>Email Address</h3>
-                    <p>-----</p>
+                    <p>Help@NFSeek.com</p>
                   </div>
                 
               </div>
