@@ -299,13 +299,13 @@ const Home = () => {
                   <img src="./images/landing/Fe-01.png" alt="feature" />
                   <h3>Dynamic Insight</h3>
                   <p>Experience the vast access to various platforms fosters an enormous engagement.</p>
-                  <Link href="/"><a className="">{svg.landing_angle}</a></Link>
+                  
                 </div>
                 <div className={styles.core_feature_box}>
                   <img src="./images/landing/Fe-02.png" alt="feature" />
                   <h3>Efficient approach</h3>
                   <p>Create a single link and save a bunch of hours for you and your subscribers.</p> 
-                  <Link href="/"><a className="">{svg.landing_angle}</a></Link>
+                  
                 </div>
               </div>
               <div className={styles.core_feature_right}>
